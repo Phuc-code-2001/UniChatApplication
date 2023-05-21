@@ -1,0 +1,54 @@
+﻿@model UniChatApplication.Models.RoomChat
+
+@{
+    ViewData["Title"] = "RoomChat - Edit";
+}
+
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="~/css/RoomChatManagement/StyleEdit.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+<div class="container">
+    <form asp-action="Edit" method="POST">
+        <h1 class="text-center text-primary">Edit RoomChat</h1>
+        <hr>
+        <div class="spacer"></div>
+        <p asp-validation-summary="ModelOnly" class="text-danger">@ViewBag.Error</p>
+        <div class="form-group">
+            <label asp-for="ClassId" class="control-label">Class</label>
+            <select asp-for="ClassId" class="form-control" asp-items="ViewBag.ClassId"></select>
+            <span asp-validation-for="ClassId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SubjectId" class="control-label">Subject</label>
+            <select asp-for="SubjectId" class="form-control" asp-items="ViewBag.SubjectId"></select>
+            <span asp-validation-for="SubjectId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TeacherId" class="control-label">Teacher</label>
+            <select asp-for="TeacherId" class="form-control" asp-items="ViewBag.TeacherId"></select>
+            <span asp-validation-for="TeacherId" class="text-danger"></span>
+        </div>
+        <div class="d-flex flex-column">
+            <!-- button submit -->
+            <button type="submit" class="form-submit button-2 text-white text-decoration-none">
+                <i class="fa fa-check"></i>
+                <span>Save</span>
+            </button>
+        </div>
+        
+    </form>
+
+    <!-- button back to menu -->
+    <a asp-action="Index" id="btn-cancel" class="button-3 text-white text-decoration-none">
+        <i class="fa fa-times"></i>
+        <span>Back to List</span>
+    </a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

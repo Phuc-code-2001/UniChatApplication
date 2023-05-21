@@ -1,0 +1,120 @@
+@model UniChatApplication.Models.AdminProfile
+
+@{
+    ViewData["Title"] = "AdminProfile";
+}
+<link rel="stylesheet" href="~/css/StyleAdmin/StyleAdminProfile.css">
+
+<div class="background">
+    <div class="container">
+        <br>
+        <div class="box-header">
+            <h1 class="text-center">Admin Profile</h1>
+        </div>
+        <br>
+        <div class="d-flex" style="gap: 1rem;">
+            @* Avatar and username *@
+            <div class="box">
+                <div class="d-flex justify-content-center my-auto">
+                    <div class="avatar-box">
+                        <img src="@Model.Avatar" alt="avatar" class="rounded-circle">
+                        <div class="btn-edit-avatar">
+                            <ion-icon name="camera"></ion-icon>
+                        </div>
+                    </div>
+                </div>
+                <form class="avatar-form" enctype="multipart/form-data" asp-action="UpdateAvatar" method="POST">
+                    <input class="file-info" type="file" accept=".png,.jpg" name="imageFile">
+                    <input class="file-info px-3" type="submit" value="Ok">
+                </form>
+                <h4 class="text-info mt-auto">@Model.Account.Username</h4>
+            </div>
+
+            @* Profile *@
+            <form asp-action="Edit" method="POST" class="box flex-grow-1">
+                <hr>
+                <input type="hidden" asp-for="Id">
+                <div class="d-flex align-items-center">
+                    <h6 class="col-sm-4">Full Name:</h6>
+                    <span class="col-sm-6 txtInfo" name="FullName">@Model.FullName</span>
+                    <input class="txtInfo form-control" type="text" asp-for="FullName">
+                </div>
+                <hr>
+                <div class="d-flex align-items-center">
+                    <h6 class="col-sm-4">Email: </h6>
+                    <span class="col-sm-6 txtInfo" name="Email">@Model.Email</span>
+                    <input class="txtInfo form-control" type="text" asp-for="Email" readonly>
+                </div>
+                <hr>
+                <div class="d-flex align-items-center">
+                    <h6 class="col-sm-4">Phone: </h6>
+                    <span class="col-sm-6 txtInfo" name="Phone">@Model.Phone</span>
+                    <input class="txtInfo form-control" type="text" asp-for="Phone">
+                </div>
+                <hr>
+                <div class="d-flex align-items-center">
+                    <h6 class="col-sm-4">Gender: </h6>
+                    <span class="col-sm-6 txtInfo" name="Gender">@Model.GenderText</span>
+                    <select class="txtInfo form-control" asp-for="Gender">
+                        <option value="true">Male</option>
+                        <option value="false">Female</option>
+                    </select>
+                </div>
+                <hr>
+                <br>
+                <div class="d-flex">
+                    <span id="btn-edit" class="button-1 text-decoration-none text-white">Edit</span>
+                    <span id="btn-edit-cancel" class="button-3 text-decoration-none text-white">Cancel</span>
+                    <button type="submit" id="btn-edit-success"
+                        class="button-2 text-decoration-none text-white ml-3">Ok</button>
+
+                    <div class="btn-group ml-auto">
+                        <a asp-action="UpdatePassword" class="button-2 text-decoration-none text-white ml-auto">Đổi mật khẩu</a>
+                        <a asp-action="Index" class="button-3 text-decoration-none text-white ml-3">Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        $("#btn-edit-success, #btn-edit-cancel").hide();
+        $("input.txtInfo, select.txtInfo").hide();
+
+        $("#btn-edit").click(function () {
+            $("#btn-edit-success, #btn-edit-cancel").show();
+            $("span.txtInfo").hide();
+
+            $("input[name='FullName']").val($("span[name='FullName']").text());
+            $("input[name='Email']").val($("span[name='Email']").text());
+            $("input[name='Phone']").val($("span[name='Phone']").text());
+
+
+            $("input.txtInfo, select.txtInfo").show();
+            $(this).hide();
+        });
+
+        $("#btn-edit-cancel").click(function () {
+
+            $("#btn-edit-success, #btn-edit-cancel").hide();
+            $("input.txtInfo, select.txtInfo").hide();
+
+            $("span.txtInfo").show();
+            $("#btn-edit").show();
+        })
+
+        $(".avatar-form").hide();
+
+        $(".btn-edit-avatar").click(function(){
+            $(".avatar-form").toggle();
+        })
+
+    })
+
+</script>

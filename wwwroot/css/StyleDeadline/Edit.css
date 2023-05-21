@@ -1,0 +1,23 @@
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: monospace, sans-serif;
+    }
+    /* Main */
+body{
+    background-image: url('BackgroundEdit.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+    .container {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        margin-top: 60px;
+        padding: 2rem;
+        border: 2px solid black;
+        border-radius: 5px;
+    }

@@ -1,0 +1,80 @@
+﻿@{
+
+
+
+    ViewData["Title"] = "Home";
+}
+
+<link type="text/css" rel="stylesheet" href="~/css/StyleHome/StyleHomeIndex.css" />
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+@*Component1*@
+<header>
+
+</header>
+
+
+@*Component2*@
+<div class="introProject">
+    <h1>About Project</h1>
+    <p>
+        Unichat is a new software system that allow student connect online with teacher through chat box. The system
+        will use in school (secondary school, high school and university) which automatic create box chat by student
+        code and subject code. It help teacher and student can manage study document more easy because it aggregate all
+        chat about study information in once system.
+    </p>
+</div>
+
+@*Component3 *@
+
+<div class="background">
+    <div class="text-box">
+        <h1>Join With Us</h1>
+        <div class="btn-group" style="gap: 1.5rem">
+            <a class="button-1 text-decoration-none text-white" asp-area="" asp-controller="Login" asp-action="Index">
+                Login </a>
+            <a class="button-2 text-decoration-none text-white" asp-area="" asp-controller="Contact" asp-action="Index">
+                Contact </a>
+        </div>
+    </div>
+</div>
+@*Component 4*@
+<div class="introProject">
+    <h1>Vision and Scope</h1>
+    <p>
+        An integrated system built to bring convenience and accessibility to communication between teachers and
+        students. We believe that the advantages of automatically creating group chats and the accompanying learning
+        information management features will help close the gap between teachers and students. In each new semester,
+        both teachers and students do not have to spend time creating manual chat groups and lack the features support
+        for learning such as current platforms. So the system would be a great choice for all levels of education but
+        not just universities in terms of bridging the gap between teachers and students.
+
+    </p>
+</div>
+
+
+@*Component 5*@
+
+<footer>
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col-sm-6 text-center">
+                <strong>
+                    <p>Direction: Fpt CanTho University</p>
+                    <p>Group 1: Contact Us</p>
+                </strong>
+            </div>
+            <div class="col-sm-6 row text-center">
+                <div class="col-sm-6">
+                    <i class="fab fa-facebook fa-2x"> Facebook </i>
+                </div>
+                <div class="col-sm-6">
+                    <i class="fab fa-twitter fa-2x"> Twitter </i>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,65 @@
+﻿<link href="~/css/StyleLogin/StyleLoginIndex.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+@*Component 1*@
+<div class="background">
+    <div class="text-box">
+        <div class="form-header">
+            <h1>Sign in</h1>
+        </div>
+        <br />
+        <div class="form-body">
+            <form class="login-form" method="post">
+
+                @* name = username id = username *@
+                <input type="text" id="username" name="username" placeholder="Username">
+
+                @{
+                    if (ViewData["uerror"] != null && ViewData["uerror"].ToString() != "")
+                    {
+                        <div class="alert alert-danger">
+                            <strong>@ViewData["uerror"]</strong>
+                        </div>
+                    }
+                }
+
+                @*Password id = password; name = password*@
+                <input type="password" id="password" name="password" placeholder="Password">
+                @{
+                    if (ViewData["perror"] != null && ViewData["perror"].ToString() != "")
+                    {
+                        <div class="alert alert-danger">
+                            <strong>@ViewData["perror"]</strong>
+                        </div>
+                    }
+                }
+
+                @{
+                    if (ViewData["loginFailed"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            <strong>@ViewData["loginFailed"]</strong>
+                        </div>
+                    }
+                }
+
+                @* Remember me *@
+                <div class="d-flex align-items-center py-1" style="gap: 1rem">
+                    <input type="checkbox" name="remember" value="true" checked>
+                    <span>Remember me</span>
+                </div>
+
+                @* Login button *@
+                <div>
+                    <button class="button-2 " type="submit">Login</button>
+                    <button class="button-3 " type="reset">Cancel</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

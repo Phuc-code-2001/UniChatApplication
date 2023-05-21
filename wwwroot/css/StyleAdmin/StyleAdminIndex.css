@@ -1,0 +1,22 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monaco,Consolas,Lucida Console,monospace;
+}
+
+
+.card {
+    margin: 2%;
+    padding: 1%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.card:hover{
+    box-shadow: 8px 8px 8px #3c4fe0;
+    transform:translateY(-2px);
+}
+
+.card h5 {
+    font-weight: 600;
+}

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<UniChatApplication.Models.Class>
+
+@{
+    ViewData["Title"] = "ClassManagement";
+}
+
+@* Link CSS *@
+<link rel="stylesheet" href="~/css/ClassManagement/StyleIndex.css">
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+<div class="background">
+    <div class="container">
+        <br>
+        <div class="box">
+            <h1 class="text-center">Classes Management</h1>
+            <hr>
+            <div>
+                <div class="row text-center">
+                    <div class="col-sm-6">
+                        <a class="button-2 w-50 text-decoration-none text-white" asp-action="Create">Create</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a class="button-3 w-50 text-decoration-none text-white" asp-controller="Admin"
+                            asp-action="Index">Back to Admin</a>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
+
+            <h2 class="text-center">List Of Classes</h2>
+            <table class="table table-bordered text-center" id="class-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Number of students</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Class item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.StudentProfiles.Count</td>
+                            <td class="d-flex justify-content-center" style="gap: 1rem;">
+                                <a class="button-2 text-decoration-none text-white" asp-action="Edit"
+                                asp-route-id="@item.Id">
+                                    <ion-icon name="create-outline"></ion-icon>
+                                </a>
+                                <a class="button-1 text-decoration-none text-white" asp-action="Details"
+                                asp-route-id="@item.Id">
+                                    <ion-icon name="information-circle-outline"></ion-icon>
+                                </a>
+                                <a class="button-3 text-decoration-none text-white" asp-action="Delete"
+                                asp-route-id="@item.Id">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function(){
+
+        $('#class-table').DataTable({
+            "language": {
+                "lengthMenu": "_MENU_",
+                "zeroRecords": "No data matching",
+                "info": "_PAGE_/_PAGES_",
+                "infoEmpty": "",
+                "infoFiltered": ""
+            }
+        });
+    })
+
+</script>
+@* Datatable link scripts *@
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+@* ionicon link scripts *@
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

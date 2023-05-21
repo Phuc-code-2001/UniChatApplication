@@ -1,0 +1,101 @@
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: monospace, sans-serif;
+    }
+    /* Main */  
+    body {
+        padding-top: 80px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        background-color: #e0f7fa;
+    }
+
+    .container {
+        background-color: white;
+        padding: 2rem 1rem;
+        border-radius: 10px;
+       border: 2px solid black;
+    }
+
+    .avatar-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .avatar-box img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 0 5px 1px blue;
+    }
+
+
+</style>
+
+<div class="container">
+    <div class="text-center"> 
+    <h1 class="text-primary text-center">Information about GroupChat</h1>
+    <h4 class="text-info text-center">Subject: @ViewBag.RoomChat.Subject.SubjectCode -
+        @ViewBag.RoomChat.Subject.FullName</h4>
+    <hr>
+    @if (ViewBag.LoginUser.RoleName == "Student") {
+        <a asp-controller="Box" asp-action="GroupChat" asp-route-id="@Model.Id" class="button-3 text-white text-decoration-none">Back</a>
+    }
+    else if (ViewBag.LoginUser.RoleName == "Teacher") {
+        <a asp-controller="Box" asp-action="RoomChat" asp-route-id="@Model.RoomID" class="button-3 text-white text-decoration-none">Back</a>
+    }
+    else {
+        <a asp-controller="RoomChat" asp-action="Details" asp-route-id="@Model.RoomID" class="button-3 text-white text-decoration-none">Back</a>
+    }
+    </div>
+   
+    <hr>
+
+    <div class="group-student-list">
+        <h4 class="text-center text-info">@Model.Name</h4>
+        <table class="table table-bordered table-sm text-center">
+            <thead class="bg-info">
+                <tr>
+                    <th>No.</th>
+                    <th>Avatar</th>
+                    <th>FullName</th>
+                    <th>StudentCode</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int index = 0;
+                    foreach (GroupManage item in ViewBag.GroupDataList)
+                    {
+                        index++;
+                        <tr>
+                            <td>@index</td>
+                            <td>
+                                <div class="avatar-box">
+                                    <img src="@item.StudentProfile.Avatar" alt="">
+                                </div>
+                            </td>
+                            <td>
+                                @item.StudentProfile.FullName
+                            </td>
+                            <td>@item.StudentProfile.StudentCode</td>
+                            <td>@item.RoleText</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

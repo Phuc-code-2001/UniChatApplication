@@ -1,0 +1,96 @@
+﻿@model IEnumerable<UniChatApplication.Models.Contact>
+
+@{
+    ViewData["Title"] = "ContactManagement";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+<link rel="stylesheet" href="~/css/ContactManagement/ContactManagement.css" />
+
+
+<div class="container-fluid p-5">
+    <div class="frame">
+
+        <h1 class="text-center text-primary">Contact Management</h1>
+        <hr>
+        <div class="head-control text-center">
+            <a class="button-3 text-decoration-none text-white" asp-controller="Admin" asp-action="Index">Back to Admin</a>
+        </div>
+        <hr>
+        <h2 class="text-center text-primary">List of Contact</h2>
+        <div class="table-box">
+            <table class="table table-bordered text-center">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>Contact ID</th>
+                        <th>Title</th>
+                        <th>Message</th>
+                        <th>Customer Phone</th>
+                        <th>Customer Email</th>
+                        <th>Progress</th>
+                        <th>Option</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Contact item in Model)
+                    {
+                        <tr>
+                            <td>@item.contactId</td>
+                            <td>@item.contactTitle</td>
+                            <td>@item.contactMes</td>
+                            <td>@item.contactCustomerPhone</td>
+                            <td>@item.contactCustomerEmail</td>
+                            <td>
+                                @{
+                                    if (item.contactProgress)
+                                    {
+                                        <span>
+                                            Finished!
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            Not Finish!
+                                        </span>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <div class="configure">
+                                    <a class="button-3 text-decoration-none text-white" asp-action="Delete"
+                                    asp-route-id="@item.contactId" onclick="Are you sure about that?">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </a>
+                                    <a class="button-1 text-decoration-none text-white" asp-action="Update"
+                                    asp-route-id="@item.contactId" onclick="Are you sure about that?">
+                                        <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#table").DataTable({});
+
+    })
+
+</script>
+
+@* Datatable link scripts *@
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+@* ionicon link scripts *@
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

@@ -1,0 +1,146 @@
+﻿@model UniChatApplication.Models.AdminProfile
+
+@{
+    ViewData["Title"] = "AdminPage";
+}
+
+<link rel="stylesheet" href="~/css/StyleAdmin/StyleAdminIndex.css">
+
+@*Component 1*@
+<nav class="navbar navbar bg-light justify-content-between">
+    <h4 class="text-success p-3">
+        Wellcome to Administrator Page - @Model.FullName
+    </h4>
+    <div class="d-flex" style="gap: 1rem;">
+        <a class="text-decoration-none text-white button-1" asp-controller="Admin" asp-action="Details" asp-route-id="@Model.Id" >Profile</a>
+        <a class="text-decoration-none text-white button-3" asp-area="" asp-controller="Login" asp-action="Logout">Log out</a>
+    </div>
+</nav>
+
+<br/>
+
+<div class="row">
+    @*Component 2*@
+    <div draggable="true" class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Student Management</h5>
+                <p class="card-text"> Allow admin to View, Search, Create, Edit, Delete student for unichat system. </p>
+                <a class="text-decoration-none text-white button-2" asp-area="" asp-controller="StudentProfile" asp-action="Index">Go</a>
+            </div>
+        </div>
+    </div>
+    @*Component 3*@
+    <div draggable="true" class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Teacher Management</h5>
+                <p class="card-text"> Allow admin to View, Search, Create, Edit, Delete teacher for unichat system.</p>
+                <a class="text-decoration-none text-white button-2" asp-area="" asp-controller="TeacherProfile" asp-action="Index">Go</a>
+            </div>
+        </div>
+    </div>
+    @*Component 4*@
+    <div draggable="true" class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Class Management</h5>
+                <p class="card-text"> Allow admin to manage classes. </p>
+                <a class="text-decoration-none text-white button-2" asp-area="" asp-controller="Class" asp-action="Index">Go</a>
+            </div>
+        </div>
+    </div>
+    @*Component 5*@
+    <div draggable="true" class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Subject Management</h5>
+                <p class="card-text">Allow admin to manage subjects.</p>
+                <a class="text-decoration-none text-white button-2" asp-controller="Subject" asp-action="Index">Go</a>
+            </div>
+        </div>
+    </div>
+
+    @*Component 6*@
+    <div draggable="true" class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">RoomChat Management</h5>
+                <p class="card-text">Allow admin to manage RoomChat.</p>
+                <a class="text-decoration-none text-white button-2" asp-controller="RoomChat" asp-action="Index">Go</a>
+            </div>
+        </div>
+    </div>
+
+    @*Component 7*@
+    <div draggable="true" class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Contact Management</h5>
+                <p class="card-text">Allow admin to manage Contact.</p>
+                <a class="text-decoration-none text-white button-2" asp-controller="Contact" asp-action="ContactManagement">Go</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+
+  var dragSrcEl = null;
+  
+  function handleDragStart(e) {
+    this.style.opacity = '0.4';
+    
+    dragSrcEl = this;
+
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+  }
+
+  function handleDragOver(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+
+    e.dataTransfer.dropEffect = 'move';
+    
+    return false;
+  }
+
+  function handleDragEnter(e) {
+  }
+
+  function handleDragLeave(e) {
+  }
+
+  function handleDrop(e) {
+    if (e.stopPropagation) {
+      e.stopPropagation(); 
+    }
+    
+    if (dragSrcEl != this) {
+      dragSrcEl.innerHTML = this.innerHTML;
+      this.innerHTML = e.dataTransfer.getData('text/html');
+    }
+    
+    return false;
+  }
+
+  function handleDragEnd(e) {
+    this.style.opacity = '1';
+  }
+  
+  
+  let items = document.querySelectorAll('.col-sm-6');
+  items.forEach(function(item) {
+    item.addEventListener('dragstart', handleDragStart, false);
+    item.addEventListener('dragenter', handleDragEnter, false);
+    item.addEventListener('dragover', handleDragOver, false);
+    item.addEventListener('dragleave', handleDragLeave, false);
+    item.addEventListener('drop', handleDrop, false);
+    item.addEventListener('dragend', handleDragEnd, false);
+  });
+});
+</script>
+</script>

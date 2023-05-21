@@ -1,0 +1,91 @@
+﻿@model UniChatApplication.Models.TeacherProfile
+
+@{
+    ViewData["Title"] = "Teacher - Edit";
+}
+<link rel="stylesheet" href="~/css/TeacherManagement/StyleEdit.css">
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="~/js/FormValidator.js"></script>
+
+
+<div class="main-control-edit">
+    <form method="POST" class="form" id="form-1">
+        <h1 class="align-center heading text-primary">Edit Teacher Information</h1>
+        <hr>
+
+        <div class="spacer"></div>
+        
+        <!-- name = id = fullname -->
+        <div class="form-group">
+            <label for="fullname" class="form-label">Full Name</label>
+            <input id="fullname" asp-for="FullName" type="text" placeholder="Ex: Nguyễn Khánh Duy" class="form-control">
+            <span class="form-message" asp-validation-for="FullName"></span>
+        </div>
+
+        <!-- name = id = teacherCode -->
+        <div class="form-group">
+            <label for="teacherCode" class="form-label">Teacher Code</label>
+            <input type="text" id="teacherCode" asp-for="TeacherCode" placeholder="Ex: 00000519" class="form-control">
+            <span class="form-message" asp-validation-for="TeacherCode"></span>
+        </div>
+
+        <!-- name = Gender -->
+        <div class="form-group">
+            <label for="Gender" class="form-label">Gender</label>
+            <select asp-for="Gender" id="Gender">
+                <option value="true">Male</option>
+                @{
+                    if(Model.GenderText == "Female"){
+                        <option value="false" selected>Female</option>
+                    }
+                    else if (Model.GenderText == "Male"){
+                        <option value="false">Female</option>
+                    }
+                }
+            </select>
+        </div>
+        
+        <!-- button submit -->
+        <button type="submit" class="form-submit button-2">
+            <i class="fa fa-check"></i>
+            Save
+        </button>
+        <hr>
+
+        <!-- button back to menu -->
+        <a asp-action="Index" id="btn-cancel" class="button-3 text-decoration-none">
+            <i class="fa fa-times"></i>
+            Back to List
+        </a>
+
+    </form>
+
+
+
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#fullname', 'Please enter full name!'),
+                Validator.maxLength('#fullname', 50),
+                Validator.isName('#fullname', "Please enter only letters"),
+
+                Validator.isRequired('#teacherCode', 'Please enter teacher code!'),
+                Validator.isTeacherCode('#teacherCode', '')
+            ],
+        });
+    });
+
+</script>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

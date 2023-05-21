@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monaco, Consolas, Lucida Console, monospace;
+}
+
+body{
+    background-image: url('BackgroundChangePassword.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100vw;
+}
+
+form {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 1rem;
+    padding: 2rem;
+}

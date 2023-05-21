@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "SubjectManagement";
+}
+@model IEnumerable<Subject>
+
+@* Link CSS *@
+<link rel="stylesheet" href="~/css/SubjectManagement/StyleIndex.css">
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+<div class="background">
+    <div class="container">
+        <br>
+        <div class="box">
+            <h1 class="text-center">Subject Management</h1>
+            <hr>
+            <div>
+                <div class="row text-center">
+                    <div class="col-sm-6">
+                        <a class="button-2 w-50 text-decoration-none text-white" asp-action="Create">Create</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <a class="button-3 w-50 text-decoration-none text-white" asp-controller="Admin"
+                            asp-action="Index">Back to Admin</a>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
+            <h2 class="text-center">List Of Subject</h2>
+            <table class="table table-bordered text-center">
+                <thead>
+                    <th>ID</th>
+                    <th>SubjectCode</th>
+                    <th>SubjectName</th>
+                    <th>Operation</th>
+                </thead>
+                <tbody>
+                    @foreach (Subject item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.SubjectCode</td>
+                            <td>@item.FullName</td>
+                            <td>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="button-3 text-decoration-none text-white">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

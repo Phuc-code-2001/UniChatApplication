@@ -1,0 +1,70 @@
+﻿@model Contact
+@{
+    ViewData["Title"] = "Delete";
+}
+<link rel="stylesheet" href="~/css/StyleContact/StyleIndex.css" />
+<div class="container">
+    <div class="row">
+         <div class="col-sm-12">
+        <div class="box">
+            <h1>Update Progress</h1>
+
+            <hr>
+            <form method="post" asp-action="UpdateContact">
+                @*id= cId; name= cId*@
+                <div class="form-group">
+                    <label asp-for="contactId"></label>
+                    <input type="text" asp-for="contactId" class="form-control" readonly>
+                </div>
+
+                @*id= cTile; name= cTile *@
+                <div class="form-group">
+                    <label asp-for="contactTitle">Contact Title: </label>
+                    <input type="text" asp-for="contactTitle" class="form-control" aria-describedby="tile-Help"
+                           readonly>
+                </div>
+
+                @*id= cMes; name= cMes *@
+                <div class="form-group">
+                    <label asp-for="contactMes">Messages: </label>
+                    <input type="text" asp-for="contactMes" class="form-control" aria-describedby="mes-Help"
+                           readonly>
+                </div>
+
+                @*id= cCusPhone; name= cCusPhone *@
+                <div class="form-group">
+                    <label asp-for="contactCustomerPhone">Phone: </label>
+                    <input type="text" asp-for="contactCustomerPhone" class="form-control" aria-describedby="phone-Help"
+                           readonly>
+
+                </div>
+
+                @*id= cCusMail; name= cCusMail *@
+                <div class="form-group">
+                    <label asp-for="contactCustomerEmail">Email: </label>
+                    <input type="text" asp-for="contactCustomerEmail" class="form-control" aria-describedby="mail-Help"
+                           readonly>
+                </div>
+
+                @*id= cPro; name= cPro *@
+            <div class="form-group">
+                <label asp-for="contactProgress"></label>
+                <select class="form-control" asp-for="contactProgress">
+                    <option value="True">Finish</option>
+                    <option value="False">Not Finish</option>
+                </select>
+            </div>
+
+
+                <button type="submit" value="Confirm" class="button-2">Confirm</button>
+
+                <a asp-controller="Contact" asp-action="ContactManagement">
+                    <button type="button" class="button-3">Cancel</button>
+                </a>
+            </form>
+
+        </div>
+    </div>  
+    </div>
+   
+</div>

@@ -1,0 +1,152 @@
+@model IEnumerable<RoomDeadLine>
+
+@{
+
+
+
+    ViewData["Title"] = "RoomDeadline Management";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/css/StyleDeadline/View.css">
+
+
+<div class="container">
+    @* Tile *@
+    <h2 class="text-center text-primary font-weight-bold">DeadLine</h2>
+    @* Button *@
+    <div class="text-center">
+        @if (ViewBag.LoginUser.RoleName == "Teacher")
+
+        {
+            <a class="button-2 text-white text-decoration-none" asp-action="Create"
+            asp-route-RoomId="@ViewBag.RoomChat.Id">Create</a>
+        }
+        <a class="button-3 text-white text-decoration-none" asp-controller="Box" asp-action="RoomChat"
+            asp-route-id="@ViewBag.roomChat.Id">Back</a>
+    </div>
+    <h4 class="text-center">
+        <span class="text-success">@ViewBag.RoomChat.Class.Name - @ViewBag.RoomChat.Subject.FullName</span>
+    </h4>
+
+    @* New Deadline *@
+    <div class="d-box new">
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered text-center" id="new-table">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th>Number</th>
+                        <th>Content</th>
+                        <th><i class="fa fa-hourglass-end"></i></th>
+                        @if (ViewBag.LoginUser.RoleName == "Teacher")
+                        {
+                            <th>Options</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 0;
+                        foreach (RoomDeadLine item in Model)
+                       {
+                            i++;
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.Content</td>
+                                <td>@item.ExpirationTime</td>
+                                @if (ViewBag.LoginUser.RoleName == "Teacher")
+                                {
+                                    <td>
+                                        <a class="button-3" name="delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        <a class="button-2" name="edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                    </td>
+
+                                }
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        else if (ViewBag.LoginUser.RoleName == "Student")
+
+        {
+            <div class="text-success text-center bg-light py-3" style="font-size: 1.2rem;">
+                <span>Congratulations!!! You don't have any new deadline. ^^</span>
+            </div>
+        }
+        else if (ViewBag.LoginUser.RoleName == "Teacher")
+
+        {
+            <div class="text-danger text-center bg-light py-3 font-weight-bold" style="font-size: 1.2rem;">
+                <span>Oh No !!! You should create more deadlines for your students.^^</span>
+            </div>
+        }
+    </div>
+    <hr>
+    @* Old Deadline *@
+    <div class="d-box old">
+        <table class="table table-bordered table-success text-center" id="old-table">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th>Number</th>
+                    <th>Content</th>
+                    <th><i class="fa fa-hourglass-end"></i></th>
+                    @if (ViewBag.LoginUser.RoleName == "Teacher")
+                    {
+                        <th>Options</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int _i = 0;
+                    foreach (RoomDeadLine item in ViewBag.OldDeadLineList)
+                    {
+                        _i++;
+                        <tr>
+                            <td>@_i</td>
+                            <td>@item.Content</td>
+                            <td>@item.ExpirationTime</td>
+                            @if (ViewBag.LoginUser.RoleName == "Teacher")
+                            {
+                                <td>
+                                    <a class="button-3 text-decoration-none text-white" name="delete" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    <a class="button-2 text-decoration-none text-white" name="edit" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("a[name='delete']").click(function (e) {
+            if (!confirm("Do you want to delete the deadline?")) {
+                e.preventDefault();
+            }
+        });
+
+        $('#old-table').DataTable({
+            "language": {
+                "lengthMenu": "_MENU_",
+                "zeroRecords": "No data matching",
+                "info": "_PAGE_/_PAGES_",
+                "infoEmpty": "",
+                "infoFiltered": ""
+            }
+        });
+
+    })
+
+</script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>

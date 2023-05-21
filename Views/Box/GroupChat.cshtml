@@ -1,0 +1,459 @@
+@model GroupChat
+@{
+
+    ViewData["Title"] = "BoxChat";
+}
+
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="~/css/StyleBox/StyleRoomChat.css">
+
+<style>
+
+    .btn-setting {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+    }
+    
+</style>
+
+<body>
+    <div class="m-container">
+        <div class="row box">
+            @************************* User (Left) **************************** *@
+            <div class="col-sm-4 user border-right">
+                @* User tools include: profile and logout *@
+                <div class="">
+                    <div class="d-flex justify-content-around">
+                        @* Back *@
+                        <a asp-controller="Box" asp-action="Index" class="button-2 w-25 text-decoration-none text-white">
+                            <i class="fa fa-arrow-circle-left"></i>
+                        </a>
+                        @* Profile *@
+                        <a asp-controller="UserProfile" asp-action="Index" asp-route-id="@ViewBag.LoginUser.Id"
+                        class="button-1 w-25 text-white">
+                            <i class="fa fa-user"></i>
+                        </a>
+                        
+                        @* Logout *@
+                        <a asp-controller="Login" asp-action="Logout" class="button-3 w-25 text-decoration-none text-white">
+                            <i class="fa fa-power-off"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <hr>
+                @* Drawer *@
+
+                @* ------------------ Room chat -------------------- *@
+
+                <div class="d-flex m-2 p-1">
+                    <h4>Room Chat</h4>
+                </div>
+
+                @* Scroller for room chat *@
+                <div class="scroller">
+                    @* Friend drawer *@
+                    @foreach (RoomChat item in ViewBag.RoomChats)
+                    {
+
+                        <a asp-action="RoomChat" asp-route-id="@item.Id" class="friend-drawer text-decoration-none">
+                            @* Room avatar *@
+                            <img class="profile-image"
+                            src="https://picsum.photos/200" alt="">
+                            @* Room name *@
+                            <div class="friend-drawer-text text-dark ">
+                                <h4 class="mb-0">@item.Subject.SubjectCode</h4>
+                            </div>
+                        </a>
+                        <br>
+                    }
+                </div>
+                <br>
+                @* ------------------ Group chat -------------------- *@
+                <div class="d-flex align-items-center m-2 p-1">
+                    <h4>Group</h4>
+                    @if (ViewBag.GroupRole == "Leader")
+                    {
+                        <a asp-controller="GroupChat" asp-action="Setting" asp-route-groupId="@Model.Id"
+                        class="btn btn-info btn-setting">
+                            <ion-icon name="settings-sharp"></ion-icon>
+                        </a>
+                    }
+                    else {
+                        <a asp-controller="GroupChat" asp-action="Left" asp-route-GroupId="@Model.Id"
+                        class="btn btn-danger btn-setting" id="leftGroup">
+                            &rarr;
+                        </a>
+                    }
+                    
+                </div>
+                @* Scroller for group chat *@
+                <div class="scroller">
+                    @* Friend drawer *@
+                    <a asp-action="GroupChat" asp-route-id="@Model.Id" class="friend-drawer active text-decoration-none text-white">
+
+                        <img class="profile-image" src="https://picsum.photos/200" alt="">
+
+                        <div class="friend-drawer-text d-flex align-items-center">
+                            @* Name group *@
+                            <h4 class="mb-0">@Model.RoomChat.Subject.SubjectCode SL(@Model.GroupManages.Count)</h4>
+                        </div>
+                    </a>
+                    <br>
+                    @foreach (GroupChat item in ViewBag.GroupChats)
+                    {
+                        if (item.Id != Model.Id)
+                        {
+                            <a asp-action="GroupChat" asp-route-id="@item.Id" class="friend-drawer text-decoration-none text-dark">
+
+                                <img class="profile-image" src="https://picsum.photos/200" alt="">
+
+                                <div class="friend-drawer-text d-flex align-items-center">
+                                    @* Name group *@
+                                    <h4 class="mb-0">@item.RoomChat.Subject.SubjectCode SL(@item.GroupManages.Count)</h4>
+                                </div>
+                            </a>
+                            <br>
+                        }
+
+                    }
+                </div>
+                
+            </div>
+
+            @* ************************ Chat (Right)) **************************** *@
+            <div class="col-sm-8 chat">
+    
+                <div class="room-name">
+                    @* Group name *@
+                    <div class="d-flex align-items-center justify-content-center text-dark">
+                        <h4 class="text-success">
+                            <a asp-controller="GroupChat" asp-action="Details" asp-route-id="@Model.Id">
+                                Group @Model.Order - @Model.Name
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="room-body">
+                    @* Message pin and deadline pin *@
+                    <div class="pin-box border-top m-absolute">
+                        <div class="row pin setting-tray">
+                            @* Message pin *@
+                            <div class="message-pin col-sm-8">
+                                @if (ViewBag.MessagePin != null)
+                                {
+                                    <h6 class="time">Message pin: <small>@ViewBag.MessagePin.Time.ToShortTimeString() - @ViewBag.MessagePin.Time.ToShortDateString()</small></h6>
+                                    <p style="font-size: .9rem;">
+                                            <span>@ViewBag.MessagePin.GroupMessage.Content</span>
+                                    </p>
+                                }
+                                else {
+                                    <h6 class="time">Message pin: <small></small></h6>
+                                    <p style="font-size: .9rem;"></p>
+                                }
+                            </div>
+                        </div>
+                        <div class="pin-control">
+                            @* Button for show and hide pin *@
+                            <div class="display-pin">
+                                <button class="btn btn-secondary btn-pin btn-sm"><i class="fa fa-plus"></i> </button>
+                            </div>
+                            <!-- Add font awesome icons to buttons (note that the fa-spin class rotates the icon) -->
+                            <button class="buttonload" disabled>
+                            <i class="fa fa-spinner fa-spin"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    @* Chat main *@
+                    <div class="chat-container scroller-chat">
+
+                        <ul class="chat-box">
+
+                            <li class="chat-right d-none" id="chat-right" >
+                                <div class="pin-button d-flex align-items-center m-1">
+                                    <button class="btn btn-sm" style="height: 2rem; width: 2rem;"> <i
+                                    class="fa fa-thumbtack"></i></button>
+                                </div>
+
+                                @* User chat time *@
+                                <div class="chat-hour"></div>
+                                @* User message *@
+                                <div class="chat-text" style="background-color: rgb(85, 200, 250, 0.4);">
+                                    
+                                </div>
+                                @* User avatar and name *@
+                                <div class="chat-avatar">
+                                    <img src="" alt="Me">
+                                    <div class="chat-name">Me</div>
+                                </div>
+                            </li>
+
+                            <li class="chat-left d-none" id="chat-left">
+                                <div class="chat-avatar">
+                                    <img src="" alt="">
+                                    <div class="chat-name"></div>
+                                </div>
+                                <div class="chat-text">
+                                    
+                                </div>
+                                <div class="chat-hour"></div>
+
+                                <div class="pin-button d-flex align-items-center m-1">
+                                    <button class="btn btn-sm" style="height: 2rem; width: 2rem;"><i
+                                    class="fa fa-thumbtack"></i></button>
+                                </div>
+                            </li>
+
+                            @foreach (GroupMessage item in ViewBag.Messages)
+                            {
+                                if (item.AccountId == ViewBag.LoginUser.Id)
+                                {
+                                    <li class="chat-right">
+                                        <div class="pin-button d-flex align-items-center m-1" target="@item.Id">
+                                            <button class="btn btn-sm" style="height: 2rem; width: 2rem;"> <i
+                                            class="fa fa-thumbtack"></i></button>
+                                        </div>
+
+                                        @* User chat time *@
+                                        <div class="chat-hour">@item.TimeMessage.ToShortTimeString()</div>
+                                        @* User message *@
+                                        <div class="chat-text" style="background-color: rgb(85, 200, 250, 0.4);">
+                                            @item.Content
+                                        </div>
+                                        @* User avatar and name *@
+                                        <div class="chat-avatar">
+                                            <img src="@ViewBag.LoginProfile.Avatar" alt="Me">
+                                            <div class="chat-name">Me</div>
+                                        </div>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="chat-left text-center">
+                                        <div class="chat-avatar">
+                                            <img src="@item.Account.StudentProfile.Avatar" alt="@item.Account.Username">
+                                            <div class="chat-name">@item.Account.Username</div>
+                                        </div>
+                                        <div class="chat-text">
+                                            @item.Content
+                                        </div>
+                                        <div class="chat-hour">@item.TimeMessage.ToShortTimeString()</div>
+
+                                        <div class="pin-button d-flex align-items-center m-1" target="@item.Id">
+                                            <button class="btn btn-sm" style="height: 2rem; width: 2rem;">
+                                                <i class="fa fa-thumbtack"></i>
+                                            </button>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div>
+                    <form method="post" autocomplete="off" id="send-form">
+                        <input type="hidden" name="GroupID" value="@Model.Id">
+                        <input type="text" name="Message" class="form-control" placeholder="Text...">
+                        <button type="submit" class="button-1">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+<script>
+
+    $(document).ready(function(){
+
+        const pinBtnClick = function (e)
+        {
+            let messageId = $(this).attr("target");
+            $.ajax({
+                url: "/Box/PinGroupMessage/",
+                type: "POST",
+                data: { groupMessageId: messageId },
+                success: function (data, textStatus, xhr) {
+                    $(".message-pin p").text(data.content);
+                    $(".message-pin .time small").text(data.time);
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+
+                    console.log("Pin Message Failed!");
+                }
+            });
+        }
+
+        $(".pin-button").click(pinBtnClick);
+
+        const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+        connection.start().then(function () {
+            connection.invoke("JoinGroup", @Model.Id);
+        });
+
+        connection.on("GetGroupMessage", function (username, message, messageId, avatar, time)
+        {
+            if (username == "@ViewBag.LoginUser.Username")
+            {
+                let li = $("#chat-right").clone();
+                li.removeAttr("id");
+                li.attr("class", "chat-right");
+                li.find(".chat-hour").text(time);
+                li.find(".chat-text").text(message);
+                li.find(".chat-name").text("Me");
+                li.find(".pin-button").attr("target", messageId);
+                li.find(".pin-button").click(pinBtnClick);
+                li.find("img").attr("src", avatar);
+                li.find("img").attr("alt", "Me");
+                li.appendTo($(".chat-box"));
+            }
+            else
+            {
+                let li = $("#chat-left").clone();
+                li.removeAttr("id");
+                li.attr("class", "chat-left");
+                li.find(".chat-hour").text(time);
+                li.find(".chat-text").text(message);
+                li.find(".chat-name").text(username);
+                li.find(".pin-button").attr("target", messageId);
+                li.find(".pin-button").click(pinBtnClick);
+                li.find("img").attr("src", avatar);
+                li.find("img").attr("alt", username);
+                li.appendTo($(".chat-box"));
+            }
+
+            $(".scroller-chat").animate({
+                scrollTop: $(".chat-box").outerHeight()
+            }, 800);
+
+        });
+
+        $("#send-form").submit(function (e)
+        {
+            let groupId = $(this).find("input[name='GroupID']").val();
+            let message = $(this).find("input[name='Message']").val();
+            if (message.length > 0){
+                
+                $.ajax({
+                    url: "/GroupMessage/Add/",
+                    type: "Post",
+                    dataType: "json",
+                    data: { GroupId: groupId, Message: message},
+                    success: function(data, status, xhr)
+                    {
+                        $("#send-form").find("input[name='Message']").val(null);
+                        connection.invoke("SendGroupMessage", data.id, data.groupId, data.username, data.avatar, data.message, data.time);
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) {
+                        alert("Chưa thể gửi tin nhắn..Xin thử lại.");
+                    }
+                });
+            }
+
+            e.preventDefault();
+        });
+
+        $(".scroller-chat").scrollTop($(".chat-box").outerHeight());
+
+        $(".display-pin").click(function (e) {
+            $('.pin').toggle("slow");
+        });
+
+        $(".buttonload").hide();
+
+        var loading = false;
+        const LoadMessages = function()
+        {
+            if (!loading && $(".scroller-chat").scrollTop() == 0 && $(".chat-box").height() > 530)
+            {
+                loading = true;
+                $(".buttonload").show();
+                $.ajax({
+                    url: "/GroupMessage/LoadMoreGroupMessages",
+                    data: {GroupId: @Model.Id},
+                    dataType: "json",
+                    success: function(dataList, status, xhr)
+                    {
+                        
+                        let height = 0;
+                        for(let i=0; i<dataList.length; i++)
+                        {
+                            data = dataList[i];
+                            if (data.username == "@ViewBag.LoginUser.Username")
+                            {
+                                let li = $("#chat-right").clone();
+                                li.removeAttr("id");
+                                li.attr("class", "chat-right");
+                                li.find(".chat-hour").text(data.time);
+                                li.find(".chat-text").text(data.message);
+                                li.find(".chat-name").text("Me");
+                                li.find(".pin-button").attr("target", data.id);
+                                li.find(".pin-button").click(pinBtnClick);
+                                li.find("img").attr("src", data.avatar);
+                                li.find("img").attr("alt", "Me");
+                                li.prependTo($(".chat-box"));
+
+                                height += li.outerHeight();
+                            }
+                            else
+                            {
+                                let li = $("#chat-left").clone();
+                                li.removeAttr("id");
+                                li.attr("class", "chat-left");
+                                li.find(".chat-hour").text(data.time);
+                                li.find(".chat-text").text(data.message);
+                                li.find(".chat-name").text(data.username);
+                                li.find(".pin-button").attr("target", data.id);
+                                li.find(".pin-button").click(pinBtnClick);
+                                li.find("img").attr("src", data.avatar);
+                                li.find("img").attr("alt", data.username);
+                                li.prependTo($(".chat-box"));
+
+                                height += li.outerHeight();
+                            }
+                            // End For
+                        }
+
+                        $(".scroller-chat").scrollTop(height);
+                        $(".buttonload").hide();
+                        //End Success
+                    },
+                    error: function(jqXhr, textStatus, errorMessage)
+                    {
+                        $(".buttonload").hide();
+                    }
+
+                });
+
+                loading = false;
+            };
+        };
+
+        setInterval(LoadMessages, 1500);
+
+        $("#leftGroup").click(function(e){
+            if (!confirm("Do you want to leave this group? Are you Oke?"))
+            {
+                e.preventDefault();
+            }
+        });
+
+    });
+
+</script>
+
+@* Link ionicons scripts *@
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

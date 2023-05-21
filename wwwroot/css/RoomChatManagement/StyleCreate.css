@@ -1,0 +1,26 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: monaco, Consolas, Lucida Console, monospace;
+}
+
+body {
+    background-color: #e0f7fa;
+}
+
+.container {
+    margin-top: 60px;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+label {
+    font-size: 1.2rem;
+    font-weight: 600;
+}

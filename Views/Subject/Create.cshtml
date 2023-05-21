@@ -1,0 +1,73 @@
+@{
+    ViewData["Title"] = "Subject - Create";
+}
+
+@model Subject
+
+<link rel="stylesheet" href="~/css/SubjectManagement/StyleCreate.css">
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="~/js/FormValidator.js"></script>
+
+<div class="main-control">
+    <form action="" method="POST" class="form" id="form-1">
+        <h1 class="align-center heading">Add New Subject</h1>
+        <hr>
+        <div class="spacer"></div>
+        <p asp-validation-summary="ModelOnly" class="text-danger">@ViewBag.Error</p>
+        <!-- name = subCode = id -->
+        <div class="form-group">
+            <label for="subCode" class="form-label">Subject Code</label>
+            <input id="subCode" asp-for="SubjectCode" type="text" placeholder="Ex: IOT102" class="form-control">
+            <span class="form-message" asp-validation-for="SubjectCode"></span>
+        </div>
+
+        <!-- name = subName = id -->
+        <div class="form-group">
+            <label for="subName" class="form-label" required>Full Name</label>
+            <input id="subName" asp-for="FullName" type="text" placeholder="Ex: Internet Of Thing" class="form-control">
+            <span class="form-message" asp-validation-for="FullName"></span>
+        </div>
+
+        <hr>
+
+        <!-- button submit -->
+        <button type="submit" class="form-submit button-2">
+            <i class="fa fa-check"></i>
+            <span>Add</span>
+        </button>
+        <hr>
+        <!-- button back to menu -->
+        <a asp-action="Index" id="btn-cancel" class="button-3 text-decoration-none">
+            <i class="fa fa-times"></i>
+            <span>Back to List</span>
+        </a>
+
+        <hr>
+    </form>
+
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+
+                Validator.isRequired('#subCode', 'Please enter code of subject!'),
+                Validator.minLength('#subCode', 6),
+                Validator.maxLength('#subCode', 10),
+                Validator.isSubCode('#subCode'),
+
+                Validator.isRequired('#subName', 'Please enter name of subject!'),
+                Validator.maxLength('#subName', 50),
+            ],
+        });
+
+    });
+
+</script>

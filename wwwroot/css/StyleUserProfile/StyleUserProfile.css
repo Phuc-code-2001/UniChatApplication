@@ -1,0 +1,107 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace, sans-serif;
+}
+/* Background */
+
+body{
+    background-image: url('UserProfileBackground.gif');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/*  */
+
+.profile{
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+}
+.card{
+    height: 100%;
+    border-radius: 1rem;
+    border: 1px solid black;
+}
+
+
+.card-image{
+    padding: 1rem;
+    margin: 1rem;
+    text-align: center;
+}
+.card-img{
+    box-shadow: 0 0 5px 1px blue;
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
+}
+
+.box{
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid black;
+    padding: 2rem;
+    height: 100%;
+    font-size: 1rem;
+}
+
+.avatar-form {
+    box-shadow: 0 0 5px 1px blue;
+    border-radius: 5px;
+}
+
+.avatar-form input.file-info {
+    border: none;
+    outline: none;
+    height: 100%;
+}
+
+.txt-control {
+    padding: 0 .5rem;
+    outline: none;
+    border: 0.5px solid black;
+    background-color: antiquewhite;
+    border-radius: 4px;
+    max-width: 180px;
+}
+
+.edit-group {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.edit-button-group {
+    display: flex;
+    gap: .1rem;
+}
+
+.edit-button, .edit-button-ok, .edit-button-cancel {
+    border: none;
+    background-color: transparent;
+    border-radius: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 26px;
+    height: 26px;
+}
+
+.edit-button:hover {
+    background-color: #eee;
+}
+
+.edit-button-ok {
+    background-color: var(--success);
+    color: white;
+}
+
+.edit-button-cancel {
+    background-color: var(--danger);
+    color: white;
+}
+
+ion-icon {
+    pointer-events: none;
+}

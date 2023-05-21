@@ -1,0 +1,177 @@
+﻿@model UniChatApplication.Models.Class
+
+@{
+    ViewData["Title"] = "Edit - Class";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="~/css/ClassManagement/StyleEdit.css">
+
+<div class="container">
+    <div class="text-center">
+    <h1 class="text-primary">Class Management</h1>
+    <h4 class="text-info">Edit for class @Model.Name</h4>
+    <hr>
+    <a asp-action="Index" class="button-3 text-white text-decoration-none">Back to List</a>
+    </div>
+    
+    <hr>
+    <div class="students">
+        <div class="student-list">
+            <h5 class="text-center text-success">List of students of UniChat System</h5>
+            <table class="table table-bordered" id="student-list">
+                <thead class="bg-success text-white">
+                    <tr>
+                        <th>RollNo</th>
+                        <th>Avatar</th>
+                        <th>FullName</th>
+                        <th>Major</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-list">
+
+                    @foreach (StudentProfile item in ViewBag.students)
+                    {
+                        <tr id="@item.Id">
+                            <td>@item.StudentCode</td>
+                            <td>
+                                <img class="avatar" src="@item.Avatar" alt="">
+                            </td>
+                            <td>@item.FullName</td>
+                            <td>@item.Major</td>
+                            <td>
+                                <span command="Add" obj="@item.Id" class="btn btn-primary btn-sm">Add</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="student-class">
+            <h5 class="text-center text-info">List of students of @Model.Name</h5>
+            <table class="table table-bordered" id="student-class">
+                <thead class="bg-info text-white">
+                    <tr>
+                        <th>RollNo</th>
+                        <th>Avatar</th>
+                        <th>FullName</th>
+                        <th>Major</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-class">
+                    @foreach (StudentProfile item in Model.StudentProfiles)
+                    {
+                        <tr>
+                            <td>@item.StudentCode</td>
+                            <td>
+                                <img class="avatar" src="@item.Avatar" alt="">
+                            </td>
+                            <td>@item.FullName</td>
+                            <td>@item.Major</td>
+                            <td>
+                                <span command="Remove" obj="@item.Id" class="btn btn-danger btn-sm">Remove</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#student-list').DataTable({
+            "language": {
+                "lengthMenu": "_MENU_",
+                "zeroRecords": "No data matching",
+                "info": "_PAGE_/_PAGES_",
+                "infoEmpty": "",
+                "infoFiltered": ""
+            }
+        });
+
+        $('#student-class').DataTable({
+            "language": {
+                "lengthMenu": "_MENU_",
+                "zeroRecords": "No data matching",
+                "info": "_PAGE_/_PAGES_",
+                "infoEmpty": "",
+                "infoFiltered": ""
+            }
+        });
+
+
+
+        $("td span").click(function () {
+
+            let span = $(this);
+            let studentId = $(this).attr("obj");
+            let row = $(this).parents("tr");
+
+            if (span.attr("command") == "Add") {
+
+                $.ajax({
+                    url: '/Class/AddStudent/',
+                    type: 'POST',
+                    data: { stId: studentId, classId: @Model.Id },
+                    success: function (data, textStatus, xhr) {
+
+                        span.attr("command", "Remove");
+                        span.attr("class", "btn btn-danger btn-sm");
+                        span.text("Remove");
+                        row.clone().appendTo($("#tbody-class"));
+                        row.remove();
+                        console.log("AddStudent Success!");
+                        location.reload();
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) {
+
+                        console.log("AddStudent Failed!");
+                    }
+                });
+
+            }
+            else if (span.attr("command") == "Remove") {
+
+                $.ajax({
+                    url: '/Class/RemoveStudent/',
+                    type: 'POST',
+                    data: { stId: studentId, classId: @Model.Id },
+                    success: function (data, textStatus, xhr) {
+
+                        span.attr("command", "Add");
+                        span.attr("class", "btn btn-primary btn-sm");
+                        span.text("Add");
+                        row.clone().appendTo($("#tbody-list"));
+                        row.remove();
+                        $(".dataTables_empty").remove();
+
+                        console.log("RemoveStudent Success!");
+                        location.reload();
+                    },
+                    error: function (jqXhr, textStatus, errorMessage) {
+
+                        console.log("RemoveStudent Failed!");
+                    }
+                });
+            }
+
+        });
+
+    });
+
+</script>
+
+@section Scripts {
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,143 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: monaco, Consolas, Lucida Console, monospace;
+}
+/* Main */
+body{
+    background-color: #e0f7fa;
+}
+
+select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    border: 1px solid #ced4da;
+}
+
+.main-control {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    max-width: 1600px;
+    margin: auto;
+}
+
+.main-control-edit {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    max-width: 1600px;
+    margin: auto;
+}
+
+.form {
+    width: 60%;
+    min-height: 100px;
+    padding: 32px 24px;
+    text-align: center;
+    background: #fff;
+    border-radius: 2px;
+    margin: 24px;
+    align-self: center;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.form .heading {
+    font-size: 2rem;
+    color: var(--primary);
+    text-transform: capitalize;
+}
+
+.form .desc {
+    text-align: center;
+    color: #636d77;
+    font-size: 1.6rem;
+    font-weight: lighter;
+    line-height: 2.4rem;
+    margin-top: 16px;
+    font-weight: 300;
+}
+
+.form-group {
+    display: flex;
+    margin-bottom: 16px;
+    flex-direction: column;
+}
+
+.form-label, .form-message {
+    text-align: left;
+}
+
+.form-label {
+    font-weight: 600;
+    padding-bottom: 6px;
+    line-height: 1.8rem;
+    font-size: 1.2rem;
+}
+
+.form-control {
+    height: 40px;
+    padding: 8px 12px;
+    border: 1px solid #b3b3b3;
+    border-radius: 3px;
+    outline: none;
+    font-size: 1.4rem;
+}
+
+.form-group.invalid .form-control {
+    border-color: #f33a58;
+}
+
+.form-group.invalid .form-message {
+    color: #f33a58;
+}
+
+.form-message {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    padding: 4px 0 0;
+}
+
+.form-submit {
+    outline: none;
+    background-color: #1F8236;
+    margin-top: 12px;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.form-submit:hover {
+    background-color: #2088f8;
+}
+
+.spacer {
+    margin-top: 36px;
+}
+
+#btn-cancel {
+    background-color: #dc3545;
+    color: #fff;
+    margin-top: 12px;
+    padding: 12px 16px;
+    font-weight: 600;
+    border: none;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#btn-cancel:hover {
+    background-color: #db4a59;
+}

@@ -1,0 +1,82 @@
+﻿@model Contact
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="~/css/StyleContact/StyleIndex.css" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+        <div class="box">
+            <h1>Thanks For Contact With Us</h1>
+            <p>We'll answer your contact as soon as possible</p>
+
+            <hr>
+            <form method="post" asp-action="Index" id="form-1">
+                <div asp-validation-summary="ModelOnly" class="form-message"></div>
+                @*id= cTile; name= cTile *@
+                <div class="form-group">
+                    <label asp-for="contactTitle">Contact Title: </label>
+                    <input type="text" asp-for="contactTitle" class="form-control" aria-describedby="tile-Help"
+                           placeholder="Tile..." id=cTile>
+                    <span asp-validation-for="contactTitle" class="form-message"></span>
+                    <small id="tile-Help" class="form-text text-muted">Please write your contact tile here.</small>
+                </div>
+
+                @*id= cMes; name= cMes *@
+                <div class="form-group">
+                    <label asp-for="contactMes">Messages: </label>
+                    <input type="text" asp-for="contactMes" class="form-control" aria-describedby="mes-Help"
+                           placeholder="Text..." id=cMes>
+                    <span asp-validation-for="contactMes" class="form-message"></span>
+                    <small id="mes-Help" class="form-text text-muted">
+                        Please write your messages to share with us
+                        what your problem.
+                    </small>
+                </div>
+
+                @*id= cCusPhone; name= cCusPhone *@
+                <div class="form-group">
+                    <label asp-for="contactCustomerPhone">Phone: </label>
+                    <input type="text" asp-for="contactCustomerPhone" class="form-control" aria-describedby="phone-Help"
+                           placeholder="0912345678" id=cCusPhone>
+                    <span asp-validation-for="contactCustomerPhone" class="form-message"></span>
+                    <small id="m-Help" class="form-text text-muted">Please enter your phone number.</small>
+                </div>
+
+                @*id= cCusMail; name= cCusMail *@
+                <div class="form-group">
+                    <label asp-for="contactCustomerEmail">Email: </label>
+                    <input type="text" asp-for="contactCustomerEmail" class="form-control" aria-describedby="mail-Help"
+                           placeholder="" id=cCusMail>
+                    <span asp-validation-for="contactCustomerEmail" class="form-message"></span>
+                    <small id="mail-Help" class="form-text text-muted">Please tell us your email address.</small>
+                </div>
+
+
+                <button type="submit" value="Index" class="button-2">Submit</button>
+                <a asp-controller="Home" asp-action="Index"  class="button-3 text-decoration-none text-white">
+                    Return
+                </a>
+            </form>
+
+            @section Scripts{
+                @{
+                    <partial name="_ValidationScriptsPartial" />
+                }
+            }
+        </div>
+        
+    </div>
+    <div class="col-sm-4 map">
+
+        <iframe
+            src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJdwpyOSGIoDERZFq50CeiFjk&key=AIzaSyDCfhtIVVFc8xU6l45rDTDxKUa8X3JSk3k"
+            width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen>
+        </iframe>
+
+    </div>
+    </div>
+    
+</div>
+

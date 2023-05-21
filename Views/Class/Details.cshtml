@@ -1,0 +1,76 @@
+﻿@model UniChatApplication.Models.Class
+
+@{
+
+    ViewData["Title"] = "ViewDetail - Class";
+}
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="~/css/ClassManagement/StyleDetails.css">
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="text-primary">Class Management</h1>
+        <h4 class="text-secondary">Detail for @Model.Name</h4>
+        <hr>
+        <a class="button-3 text-white text-decoration-none" asp-action="Index">Back to List</a>
+    </div>
+    <hr>
+    <div class="content">
+        <div class="left-content">
+            <div class="boxchatlist">
+                <h4 class="text-center text-success ">Roomchats</h4>
+                <ol>
+                    @foreach (RoomChat item in ViewBag.RoomChats)
+
+                    {
+                        <li>
+                            <h6>
+                                <a asp-controller="RoomChat" asp-action="Details" asp-route-id="@item.Id">
+                                    @item.Subject.SubjectCode - @item.Subject.FullName
+                                </a>
+                            </h6>
+                            <ul>
+                                @foreach (GroupChat group in item.GroupChats)
+
+                                {
+                                    <li>@group.Name</li>
+
+                                }
+                            </ul>
+                        </li>
+
+                    }
+                </ol>
+            </div>
+        </div>
+        <div class="right-content">
+            <h4 class="text-center text-info">List of students of @Model.Name</h4>
+            <table class="table table-bordered text-center">
+                <thead class="bg-info">
+                    <th>Avatar</th>
+                    <th>StudentCode</th>
+                    <th>FullName</th>
+                </thead>
+                <tbody>
+                    @foreach (StudentProfile item in Model.StudentProfiles)
+
+                    {
+                        <tr>
+                            <td>
+                                <img src="@item.Avatar" alt="avatar" class="avatar">
+                            </td>
+                            <td>
+                                @item.StudentCode
+                            </td>
+                            <td>
+                                @item.FullName
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

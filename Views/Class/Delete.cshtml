@@ -1,0 +1,74 @@
+﻿@model UniChatApplication.Models.Class
+
+@{
+    ViewData["Title"] = "Delete - Class";
+}
+
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="~/css/ClassManagement/StyleDelete.css">
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="text-primary text-center">Class Management</h1>
+    <hr>
+    <a class="button-3 text-white text-decoration-none" asp-action="Index">Back to List</a>
+    <hr>
+    <h5 class="text-danger">Do you really want to delete @Model.Name?</h5>
+    <form method="post" class="mt-3">
+        <input type="submit" class="btn btn-outline-danger" value="Confirm">
+    </form>
+    </div>
+    <hr>
+    <div class="content">
+        <div class="left-content">
+            <div class="boxchatlist">
+                <h4 class="text-center text-success">Roomchats</h4>
+                <ol>
+                    @foreach (RoomChat item in ViewBag.RoomChats)
+                    {
+                        <li>
+                            <h6>
+                                <a asp-controller="RoomChat" asp-action="Details" asp-route-id="@item.Id">
+                                    @item.Subject.SubjectCode - @item.Subject.FullName
+                                </a>
+                            </h6>
+                            <ul>
+                                @foreach (GroupChat group in item.GroupChats)
+                                {
+                                    <li>@group.Name</li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ol>
+            </div>
+        </div>
+        <div class="right-content">
+            <h4 class="text-center text-info">List of students of this class</h4>
+            <table class="table table-bordered text-center">
+                <thead class="bg-info">
+                    <th>Avatar</th>
+                    <th>StudentCode</th>
+                    <th>FullName</th>
+                </thead>
+                <tbody>
+                    @foreach (StudentProfile item in Model.StudentProfiles)
+                    {
+                        <tr>
+                            <td>
+                                <img class="avatar" src="@item.Avatar" alt="avatar">
+                            </td>
+                            <td>
+                                @item.StudentCode
+                            </td>
+                            <td>
+                                @item.FullName
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

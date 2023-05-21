@@ -1,0 +1,29 @@
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: monospace;
+    }
+
+    /* Main */
+    body {
+        background-color: #e0f7fa;
+    }
+
+    .frame {
+        background-color: white;
+        padding: 3rem;
+        border-radius: 10px;
+        box-shadow: 0 0 5px 1px blue;
+
+    }
+
+    .table-box {
+        overflow: auto;
+    }
+
+    .configure {
+        display: flex;
+        gap: .5rem;
+    }

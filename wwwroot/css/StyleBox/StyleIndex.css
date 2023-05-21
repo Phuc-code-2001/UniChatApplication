@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monaco, Consolas, Lucida Console, monospace;
+}
+
+
+/* Background */
+
+body{
+    background-image: url('../StyleBox/Background_Profile.gif   ');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Header */
+header{
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 14px 33px, rgba(0, 0, 0, 0.22) 0px 10px 7px;
+}
+header h1{
+    color: #1565c0;
+    font-weight: bolder;
+}
+/* Box */
+
+.box{
+    background-color:  white;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    min-height: 450px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 14px 33px, rgba(0, 0, 0, 0.22) 0px 10px 7px;
+    display: flex;
+    flex-direction: column;
+    max-height: 433px;
+}
+
+.scroller {
+    flex: 1;
+    overflow-x: auto;
+}
+
+.scroller::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.scroller::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.scroller::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.scroller::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.scroller::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, .9);
+}
+
+.box:hover{
+    box-shadow: 8px 8px 8px #616161;
+}
+
+
+.box-tile{
+    color: #1565c0;    ;
+    font-weight: bolder;
+}
+
+.avatar-box {
+    text-align: center;
+}
+
+.avatar-box img {
+    width: 250px;
+    height: 250px;
+    border-radius: 100rem;
+    object-fit: cover;
+    box-shadow: 0 0 5px 1px blue;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.groups {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: .5rem;
+    padding-left: 3rem;
+}
+
+.deadlineItem {
+    background-color: #ffeebc;
+    padding: 1rem;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+    font-size: 1.2rem;
+}
+
+.new {
+    background-color: var(--red);
+    color: white;
+}
+
+.old {
+    color: black;
+    font-weight: 500;
+}

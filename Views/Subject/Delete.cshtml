@@ -1,0 +1,53 @@
+@model Subject
+
+@{
+
+    ViewData["Title"] = "Subject - Delete";
+}
+
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="~/css/SubjectManagement/StyleDelete.css">
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="text-primary">Subject Management</h1>
+        <hr>
+        <h5 class="text-danger">Do you really want to delete @Model.SubjectCode?</h5>
+        <form method="post" class="mt-3">
+            <input type="submit" class="btn btn-outline-danger" value="Confirm">
+        </form>
+    </div>
+
+    <hr>
+    <div class="info">
+        <h4 class="text-center text-info">Rooms Chat related to @Model.SubjectCode - @Model.FullName</h4>
+        <table class="table table-bordered text-center">
+            <thead>
+                <th>ID</th>
+                <th>Class</th>
+                <th>Teacher</th>
+                <th>Number of students</th>
+                <th>Number of groups</th>
+            </thead>
+            <tbody>
+
+                @foreach (RoomChat item in ViewBag.RoomChats)
+
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Class.Name</td>
+                        <td>@item.TeacherProfile.FullName</td>
+                        <td>@item.Class.StudentProfiles.Count</td>
+                        <td>@item.GroupChats.Count</td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+    <a class="button-3 text-white text-decoration-none" asp-action="Index">Back to List</a>
+
+</div>

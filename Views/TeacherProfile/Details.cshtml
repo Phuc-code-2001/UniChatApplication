@@ -1,0 +1,82 @@
+﻿@model UniChatApplication.Models.TeacherProfile
+
+@{
+    ViewData["Title"] = "Teacher - ViewDetail"; 
+}
+<link rel="stylesheet" href="~/css/TeacherManagement/StyleDetails.css">
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+
+<div class="background">
+    <div class="container">
+        <br>
+
+        <div class="box-header">
+            <h1 class="text-center text-primary">Teacher Management</h1>
+        </div>
+
+        <br>
+
+        <div class="row">
+            @* Avatar and username *@
+            <div class="col-sm-4">
+                <div class="box d-flex flex-column align-items-center text-center">
+                    <img src="@Model.Avatar" alt="Avatar" class="rounded-circle">
+                </div>
+            </div>
+
+            @* Profile *@
+            <div class="col-sm-8 ">
+                <div class="box d-flex align-items-center">
+                    <div class="w-100">
+
+                        <div class="d-flex">
+                            <h6 class="col-sm-4">UserName: </h6>
+                            <span class="col-sm-6 ">@Model.Account.Username</span>
+                        </div>
+                        <hr />
+                        <div class="d-flex">
+                            <h6 class="col-sm-4">Full Name: </h6>
+                            <span class="col-sm-6 ">@Model.FullName</span>
+                        </div>
+
+                        <hr>
+                        <div class="d-flex">
+                            <h6 class="col-sm-4">Email: </h6>
+                            <span class="col-sm-6 ">@Model.Email</span>
+                        </div>
+                        <hr />
+                        <div class="d-flex">
+                            <h6 class="col-sm-4">Birthday: </h6>
+                            <span class="col-sm-6 ">@Model.Birthday.ToShortDateString()</span>
+                        </div>
+
+                        <hr>
+                        <div class="d-flex">
+                            <h6 class="col-sm-4">Phone: </h6>
+                            <span class="col-sm-6 ">@Model.Phone</span>
+                        </div>
+
+                        <hr>
+                        <div class="d-flex">
+                            <h6 class="col-sm-4">Gender: </h6>
+                            <span class="col-sm-6 ">@Model.GenderText</span>
+                        </div>
+                        <hr />
+                        <div class="d-flex">
+                            <h6 class="col-sm-4">TeacherCode: </h6>
+                            <span class="col-sm-6 ">@Model.TeacherCode</span>
+                        </div>
+                        <hr />
+                        <div class="d-flex">
+                            <a class="button-2 text-decoration-none text-white" asp-action="Edit"
+                                asp-route-id="@Model.Id">Edit</a>
+                            <a class="button-3 text-decoration-none text-white ml-auto" asp-action="Index">
+                                Back To List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

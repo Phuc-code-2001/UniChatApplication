@@ -1,0 +1,56 @@
+﻿@model UniChatApplication.Models.Class
+
+@{
+    ViewData["Title"] = "Create - Class";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="~/css/ClassManagement/StyleCreate.css">
+<script src="~/js/FormValidator.js"></script>
+
+<div class="main-control">
+    <form asp-action="Create" method="POST" class="form" id="form-1">
+        <h1 class="align-center heading text-primary">Create New Class</h1>
+        <hr>
+        <div class="spacer"></div>
+        <p class="text-danger">@ViewBag.Error</p>
+        <div class="form-group">
+            <label for="Name" class="form-label">Name Of Class</label>
+            <input id="Name" asp-for="Name" type="text" placeholder="Ex: SE1503" class="form-control">
+            <span class="form-message" asp-validation-for="Name"></span>
+        </div>
+        <button type="submit" class="form-submit button-2">
+            <i class="fa fa-check"></i>
+            <span>Add</span>
+        </button>
+        <hr>
+        <a asp-action="Index" id="btn-cancel" class="button-3 text-decoration-none">
+            <i class="fa fa-times"></i>
+            <span>Back to List</span>
+        </a>
+    </form>
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#Name', 'Please enter name of class!'),
+                Validator.maxLength('#Name', 6),
+                Validator.isNameClass('#Name', ""),
+
+            ],
+        });
+
+    });
+
+</script>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

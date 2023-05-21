@@ -1,0 +1,295 @@
+@{
+
+    ViewData["Title"] = "UserProfile";
+}
+
+@model Profile
+<link rel="stylesheet" href="~/css/StyleUserProfile/StyleUserProfile.css">
+
+<div class="container">
+    <div class="row profile">
+        @* Avatar *@
+        <div class="col-sm-4 mb-2">
+            <div class="card px-2">
+                <div class="card-image avatar-box">
+                    <a href="@Model.Avatar" target="_blank">
+                        <img class="card-img" src="@Model.Avatar">
+                    </a>
+                </div>
+                <div class="text-center">
+                    <h4>
+                        @ViewBag.LoginUser.Username
+                    </h4>
+                </div>
+                <br>
+
+                <form class="p-2 d-flex avatar-form" enctype="multipart/form-data" asp-action="UpdateAvatar"
+                    method="POST">
+                    <input class="file-info" type="file" accept=".png,.jpg" name="imageFile">
+                    <input class="file-info px-2" type="submit" value="Ok">
+                </form>
+            </div>
+        </div>
+        @* Profile *@
+        <div class="col-sm-8 mb-2">
+            <div class="box">
+                <h3>Profile Information</h3>
+                <hr>
+                @if (Model.Account.RoleName == "Teacher")
+
+                {
+                    TeacherProfile profile = (TeacherProfile)Model;
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <strong>FullName:</strong>
+                            <p class="text-muted"> @profile.FullName</p>
+                        </div>
+                        <div class="edit-group col-sm-6">
+                            <strong>Birthday:</strong>
+                            <div class="d-flex" style="gap: .5rem;">
+                                <input class="txt-control" type="datetime" name="Birthday"
+                                value="@profile.Birthday.ToShortDateString()" readonly>
+
+                                <div class="edit-button-group">
+                                    <button class="edit-button" name="Birthday">
+                                        <ion-icon name="create"></ion-icon>
+                                    </button>
+                                </div>
+
+                                <div class="edit-button-group">
+                                    <button class="edit-button-ok" name="Birthday">
+                                        <ion-icon name="checkbox-outline"></ion-icon>
+                                    </button>
+                                    <button class="edit-button-cancel" name="Birthday">
+                                        <ion-icon name="close"></ion-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-danger edit-validation" name="Birthday"></p>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Gender:</strong>
+                            <p class="text-muted"> @profile.GenderText</p>
+                        </div>
+                        <div class="edit-group col-sm-6">
+                            <strong>Phone:</strong>
+                            <div class="d-flex" style="gap: .5rem;">
+                                <input class="txt-control" type="text" name="Phone" value="@profile.Phone" readonly>
+
+                                <div class="edit-button-group">
+                                    <button class="edit-button" name="Phone" title="Edit">
+                                        <ion-icon name="create"></ion-icon>
+                                    </button>
+                                </div>
+
+                                <div class="edit-button-group">
+                                    <button class="edit-button-ok" name="Phone" title="Ok">
+                                        <ion-icon name="checkbox-outline"></ion-icon>
+                                    </button>
+                                    <button class="edit-button-cancel" name="Phone" title="Cancel">
+                                        <ion-icon name="close"></ion-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-danger edit-validation" name="Phone"></p>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Email:</strong>
+                            <p class="text-muted"> @profile.Email</p>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <h3>Major</h3>
+                            <hr>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <strong>TeacherCode:</strong>
+                            <p class="text-muted"> @profile.TeacherCode</p>
+                        </div>
+                    </div>
+
+                }
+
+                else if (Model.Account.RoleName == "Student")
+
+
+
+                {
+                    StudentProfile profile = (StudentProfile)Model;
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <strong>FullName:</strong>
+                            <p class="text-muted"> @profile.FullName</p>
+                        </div>
+                        <div class="edit-group col-sm-6">
+                            <strong>Birthday:</strong>
+                            <div class="d-flex" style="gap: .5rem;">
+                                <input class="txt-control" type="datetime" name="Birthday"
+                                value="@profile.Birthday.ToShortDateString()" readonly>
+
+                                <div class="edit-button-group">
+                                    <button class="edit-button" name="Birthday">
+                                        <ion-icon name="create"></ion-icon>
+                                    </button>
+                                </div>
+
+                                <div class="edit-button-group">
+                                    <button class="edit-button-ok" name="Birthday">
+                                        <ion-icon name="checkbox-outline"></ion-icon>
+                                    </button>
+                                    <button class="edit-button-cancel" name="Birthday">
+                                        <ion-icon name="close"></ion-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-danger edit-validation" name="Birthday"></p>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Gender:</strong>
+                            <p class="text-muted"> @profile.GenderText</p>
+                        </div>
+                        <div class="edit-group col-sm-6">
+                            <strong>Phone:</strong>
+                            <div class="d-flex" style="gap: .5rem;">
+                                <input class="txt-control" type="text" name="Phone" value="@profile.Phone" readonly>
+
+                                <div class="edit-button-group">
+                                    <button class="edit-button" name="Phone">
+                                        <ion-icon name="create"></ion-icon>
+                                    </button>
+                                </div>
+
+                                <div class="edit-button-group">
+                                    <button class="edit-button-ok" name="Phone">
+                                        <ion-icon name="checkbox-outline"></ion-icon>
+                                    </button>
+                                    <button class="edit-button-cancel" name="Phone">
+                                        <ion-icon name="close"></ion-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-danger edit-validation" name="Phone"></p>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Email:</strong>
+                            <p class="text-muted"> @profile.Email</p>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <h3>Major</h3>
+                            <hr>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <strong>Major:</strong>
+                            @if (profile.Major == "SE")
+
+                            {
+                                <p class="text-muted">Software Engineering</p>
+
+                            }
+
+                            else if (profile.Major == "IOT")
+
+                            {
+                                <p class="text-muted">Internet of thing</p>
+
+                            }
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>StudentCode:</strong>
+                            <p class="text-muted"> @profile.StudentCode</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Class:</strong>
+                            <p class="text-muted"> @profile.Class.Name</p>
+                        </div>
+                    </div>
+
+                }
+                <hr>
+                @if (Model.Account.Id == ViewBag.LoginUser.Id)
+
+                {
+                    <div>
+                        <a asp-controller="Home" class="button-3 text-decoration-none text-white">Back</a>
+                        <a class="button-2 text-decoration-none text-white" asp-action="UpdatePassword">Update
+                            Password</a>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $(".edit-button-ok, .edit-button-cancel").parents(".edit-button-group").hide();
+
+        $(".edit-button").click(function (e) {
+            let name = $(this).attr("name");
+            $(`.txt-control[name='${name}']`).removeAttr("readonly");
+            $(`.txt-control[name='${name}']`).focus();
+            $(`.edit-button-ok[name='${name}'], .edit-button-cancel[name='${name}']`).parents(".edit-button-group").show();
+            $(this).parents(".edit-button-group").hide();
+
+            let value = $(`.txt-control[name='${name}']`).val();
+
+            $(`.edit-button-cancel[name='${name}']`).click(function (e) {
+                $(`.txt-control[name='${name}']`).val(value);
+                $(`.txt-control[name='${name}']`).attr("readonly", true);
+                $(`.edit-button-ok[name='${name}'], .edit-button-cancel[name='${name}']`).parents(".edit-button-group").hide();
+                $(`.edit-button[name='${name}']`).parents(".edit-button-group").show();
+            });
+
+            $(`.edit-button-ok[name='${name}']`).click(function (e) {
+
+                let nValue = $(`.txt-control[name='${name}']`).val();
+
+                if (name == "Phone") {
+                    $.ajax({
+                        url: "/UserProfile/EditPhone",
+                        data: { phone: nValue },
+                        success: function (data) {
+                            console.log("Success: ", data);
+                            $(`.txt-control[name='${name}']`).val(nValue);
+                            $(`.txt-control[name='${name}']`).attr("readonly", true);
+                            $(`.edit-button-ok[name='${name}'], .edit-button-cancel[name='${name}']`).parents(".edit-button-group").hide();
+                            $(`.edit-button[name='${name}']`).parents(".edit-button-group").show();
+                        },
+                        error: function (data) {
+                            $(`.edit-validation[name='${name}']`).text("Error: Enter format include 10 digits");
+                        }
+
+                    });
+                }
+
+                if (name == "Birthday") {
+                    $.ajax({
+                        url: "/UserProfile/EditBirthDay",
+                        data: { birthday: nValue },
+                        success: function (data) {
+                            console.log("Success: ", data);
+                            $(`.txt-control[name='${name}']`).val(data.birthday);
+                            $(`.txt-control[name='${name}']`).attr("readonly", true);
+                            $(`.edit-button-ok[name='${name}'], .edit-button-cancel[name='${name}']`).parents(".edit-button-group").hide();
+                            $(`.edit-button[name='${name}']`).parents(".edit-button-group").show();
+                        },
+                        error: function (data) {
+                            $(`.edit-validation[name='${name}']`).text("Error: Enter format DD/MM/YYYY");
+                        }
+
+                    })
+                }
+
+            });
+
+        });
+
+    })
+
+</script>

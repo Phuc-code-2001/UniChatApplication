@@ -1,0 +1,87 @@
+﻿@model UniChatApplication.Models.TeacherProfile
+
+@{
+    ViewData["Title"] = "Teacher - Delete";
+}
+
+<link rel="stylesheet" href="~/css/TeacherManagement/StyleDelete.css">
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+
+<div class="container">
+    <h1 class="text-center">Teacher Management</h1>
+    <h4 class="text-center">Delete a teacher</h4>
+    <a class="button-3 text-white text-decoration-none" asp-action="Index">Back to List</a>
+    <hr>
+    <div class="d-flex flex-wrap" style="gap: 1rem;">
+        <div class="avatar-box">
+            <img src="@Model.Avatar" alt="">
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Username</th>
+                    <td>@Model.Account.Username</td>
+                </tr>
+                <tr>
+                    <th>FullName</th>
+                    <td>@Model.FullName</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <th>Birthday</th>
+                    <td>@Model.Birthday.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>@Model.Phone</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>@Model.GenderText</td>
+                </tr>
+                <tr>
+                    <th>TeacherCode</th>
+                    <td>@Model.TeacherCode</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+    <div class="info">
+        <h4 class="text-center text-danger">RoomsChats are lectured by @Model.FullName will be delete</h4>
+        <table class="table table-bordered text-center">
+            <thead>
+                <th>ID</th>
+                <th>Class</th>
+                <th>Teacher</th>
+                <th>Number of students</th>
+                <th>Number of groups</th>
+            </thead>
+            <tbody>
+
+                @foreach (RoomChat item in ViewBag.RoomChats)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Class.Name</td>
+                        <td>@item.TeacherProfile.FullName</td>
+                        <td>@item.Class.StudentProfiles.Count</td>
+                        <td>@item.GroupChats.Count</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <div class="p-2 text-danger">
+        <h4 class="text-danger">Do you want to complete delete the teacher "@Model.FullName"?</h4>
+        <hr>
+        <form method="post" class="d-flex" style="gap: 1rem;">
+            <input type="submit" value="Confirm" class="button-3 text-white text-decoration-none" />
+        </form>
+    </div>
+</div>

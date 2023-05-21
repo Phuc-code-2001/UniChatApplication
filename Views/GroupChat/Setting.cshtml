@@ -1,0 +1,191 @@
+@{
+    ViewData["Title"] = "GroupSetting";
+}
+
+@model GroupChat
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: monospace, sans-serif;
+    }
+
+    body {
+        padding-top: 80px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .container-fluid {
+        padding: 2rem 1rem;
+        border-radius: 10px;
+        box-shadow: 0 0 5px 1px blue;
+    }
+
+    .avatar-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .avatar-box img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 0 5px 1px blue;
+    }
+
+    .student-board {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+        align-items: baseline;
+    }
+
+    .student-board > * {
+        flex: 1;
+        min-width: min(350px, 100%);
+    }
+
+    .table td, .table th {
+        vertical-align: inherit;
+    }
+
+    .btn-control {
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+
+</style>
+
+<div class="container-fluid">
+
+    <h1 class="text-primary text-center">Setting for GroupChat</h1>
+    <h4 class="text-info text-center">Subject: @ViewBag.RoomChat.Subject.SubjectCode - @ViewBag.RoomChat.Subject.FullName</h4>
+    <hr>
+    <a asp-controller="Box" asp-action="GroupChat" asp-route-id="@Model.Id" class="btn btn-danger">Back</a>
+    <hr>
+    <div class="student-board">
+        <div class="group-student-list">
+            <h4 class="text-center text-info">@Model.Name</h4>
+            <table class="table table-bordered table-sm text-center">
+                <thead class="bg-info">
+                    <tr>
+                        <th>No.</th>
+                        <th>Avatar</th>
+                        <th>FullName</th>
+                        <th>Role</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 0;
+                        foreach (GroupManage item in ViewBag.GroupDataList)
+                        {
+                            index++;
+                            <tr>
+                                <td>@index</td>
+                                <td>
+                                    <div class="avatar-box">
+                                        <img src="@item.StudentProfile.Avatar" alt="">
+                                    </div>
+                                </td>
+                                <td>
+                                    @item.StudentProfile.FullName
+                                </td>
+                                <td>@item.RoleText</td>
+                                <td>
+                                    @if (item.RoleText == "Member")
+                                    {
+                                        <a studentName="@item.StudentProfile.FullName" asp-action="Remove" asp-route-GroupManageId="@item.Id" class="remove btn btn-danger btn-sm">&rarr;</a>
+                                    }
+                                    else 
+                                    {
+                                        <a groupName="@Model.Name" asp-action="Destroy" asp-route-GroupChatId="@Model.Id" class="destroy btn btn-outline-danger btn-control">
+                                            <ion-icon name="close-circle-outline"></ion-icon>
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="room-student-list">
+            <h4 class="text-center text-secondary">Students of @ViewBag.RoomChat.Class.Name</h4>
+            <table class="table table-bordered table-sm text-center">
+                <thead class="bg-primary">
+                    <tr>
+                        <th></th>
+                        <th>FullName</th>
+                        <th>Avatar</th>
+                        <th>No.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        index = 0;
+                        foreach (StudentProfile item in ViewBag.StudentRestListOfRoom)
+                        {
+                            index++;
+                            <tr>
+                                <td>
+                                    <a asp-action="Add" asp-route-GroupChatId="@Model.Id" asp-route-StudentId="@item.Id" class="btn btn-primary btn-sm">
+                                        &larr;
+                                    </a>
+                                </td>
+                                <td>
+                                    @item.FullName
+                                </td>
+                                <td>
+                                    <div class="avatar-box">
+                                        <img src="@item.Avatar" alt="">
+                                    </div>
+                                </td>
+                                <td>@index</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function(){
+
+        $(".remove").click(function(e){
+
+            if (!confirm("Are you sure kick " + $(this).attr("studentName") + " out your group?"))
+            {
+                e.preventDefault();
+            }
+
+        });
+
+        $(".destroy").click(function(e){
+
+            if (!confirm("Do you want to completely cancel your group " + $(this).attr("groupName") + "?"))
+            {
+                e.preventDefault();
+            }
+
+        })
+
+    })
+
+
+</script>
+
+@* Link ionicons scripts *@
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

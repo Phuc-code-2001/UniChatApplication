@@ -1,0 +1,73 @@
+﻿@model UniChatApplication.Models.RoomChat
+
+@{
+
+    ViewData["Title"] = "RoomChat - Delete";
+}
+
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="~/css/RoomChatManagement/StyleDelete.css">
+
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="text-primary">RoomChat Management</h1>
+        <hr>
+        <a class="button-3 text-white text-decoration-none" asp-action="Index">Back to List</a>
+        <hr>
+        <h4 class="text-danger">Do you really want to delete this room?</h4>
+        <form method="post" class="mt-3">
+            <input type="submit" class="btn btn-outline-danger" value="Confirm">
+        </form>
+    </div>
+    <hr>
+    <div class="content">
+        <div class="left-content">
+            <h4 class="text-center text-success">Roomchat</h4>
+            <ul>
+                <li>ID: @Model.Id</li>
+                <li>ClassName: @Model.Class.Name</li>
+                <li>Subject: @Model.Subject.SubjectCode - @Model.Subject.FullName</li>
+                <li>Lecture: @Model.TeacherProfile.FullName</li>
+            </ul>
+            <h4 class="text-center text-success">Groups in this room</h4>
+            <ul>
+                @foreach (GroupChat item in ViewBag.GroupChats)
+
+                {
+                    <li>@item.Name</li>
+
+                }
+            </ul>
+        </div>
+        <div class="right-content">
+            <h4 class="text-center text-info">List of students of this room</h4>
+            <table class="table table-bordered text-center">
+                <thead class="bg-info">
+                    <th>Avatar</th>
+                    <th>StudentCode</th>
+                    <th>FullName</th>
+                </thead>
+                <tbody>
+                    @foreach (StudentProfile item in Model.Class.StudentProfiles)
+
+                    {
+                        <tr>
+                            <td>
+                                <img class="avatar" src="@item.Avatar" alt="">
+                            </td>
+                            <td>
+                                @item.StudentCode
+                            </td>
+                            <td>
+                                @item.FullName
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

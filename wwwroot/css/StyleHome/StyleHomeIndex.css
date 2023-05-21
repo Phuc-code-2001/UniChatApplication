@@ -1,0 +1,79 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    font-family: monaco,Consolas,Lucida Console,monospace;
+}
+
+
+/*Component 1*/
+header{
+    background-image: url('Wellcome.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 70vh;
+}
+
+.background {
+    background-image: url('Login.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-box {
+    color: black;
+    text-align: center;
+    background-color: white;
+    width: 60%;
+    padding: 2rem;
+    border: 1px black solid;
+    border-radius: 1em;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+.text-box:hover {
+    box-shadow: black 0px 20px 30px -10px;
+    transform: translateY(-2px);
+}
+
+.text-box h1 {
+    padding: 0.1em;
+}
+
+.text-box button {
+    margin: 1em;
+}
+
+/*Component 2*/
+.introProject{
+    margin: 5%;
+    padding: 1%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.introProject h1{
+    text-align: center;
+}
+.introProject p{
+    margin: 1em;
+}
+
+/* Footer */
+footer{
+    background-image: url('Footer.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh;
+}
+
+.container{
+    padding-top: 25vh;
+}
+.row{
+    background-color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+}

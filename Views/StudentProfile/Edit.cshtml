@@ -1,0 +1,110 @@
+﻿@model UniChatApplication.Models.StudentProfile
+
+@{
+    ViewData["Title"] = "Student - Edit";
+}
+
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="~/css/StudentManagement/StyleEdit.css">
+<script src="~/js/FormValidator.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="main-control-edit">
+    <form asp-action="Edit" method="POST" class="form" id="form-1">
+        <h1 class="align-center heading">Edit Information Student</h1>
+        <hr>
+        <div class="spacer">@ViewBag.Error</div>
+
+        <!-- name = id = fullname -->
+        <div class="form-group">
+            <label for="fullname" class="form-label" required>Full Name</label>
+            <input id="fullname" asp-for="FullName" type="text" placeholder="Ex: Nguyễn Khánh Duy" class="form-control">
+            <span class="form-message" asp-validation-for="FullName"></span>
+        </div>
+
+        <!-- name = id = stuCode -->
+        <div class="form-group">
+            <label for="stuCode" class="form-label">Student Code</label>
+            <input type="text" id="stuCode" asp-for="StudentCode" placeholder="Ex: CE150519" class="form-control">
+            <span class="form-message" asp-validation-for="StudentCode"></span>
+        </div>
+
+        <!-- name = editGender -->
+        <div class="form-group">
+            <label for="Gender" class="form-label">Gender</label>
+            <select asp-for="Gender" id="Gender">
+                <option value="true">Male</option>
+                <option value="false">Female</option>
+            </select>
+        </div>
+
+        <!-- name= Major -->
+        <div class="form-group">
+            <label for="Major" class="form-label">Major</label>
+            <select asp-for="Major" id="Major">
+                
+                @{
+                    if(Model.Major == "IOT"){
+                        <option value="IOT" selected>INTERNET OF THING</option>
+                        <option value="SE">SOFTWARE ENGINEERING</option>
+                        <option value="Unset">UNSET</option>
+                    }
+                    else if (Model.Major == "SE") {
+                        <option value="IOT">INTERNET OF THING</option>
+                        <option value="SE" selected>SOFTWARE ENGINEERING</option>
+                        <option value="Unset">UNSET</option>
+                    }
+                    else {
+                        <option value="IOT">INTERNET OF THING</option>
+                        <option value="SE">SOFTWARE ENGINEERING</option>
+                        <option value="Unset" selected>UNSET</option>
+                    }
+                }
+            </select>
+        </div>
+        <hr>
+
+        <!-- button submit -->
+        <button class="form-submit button-2">
+            <i class="fa fa-check"></i>
+            Save
+        </button>
+        <hr>
+
+        <!-- button back to menu -->
+        <a asp-action="Index" id="btn-cancel" class="button-3 text-decoration-none">
+            <i class="fa fa-times"></i>
+            <span>Back to List</span>
+        </a>
+
+    </form>
+
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#fullname', 'Please enter full name!'),
+                Validator.isName('#fullname', "Please enter only letters"),
+                Validator.maxLength('#fullname', 50),
+
+                Validator.isRequired('#stuCode', 'Please enter student code!'),
+                Validator.minLength('#stuCode', 8),
+                Validator.isStuCode('#stuCode', '')
+            ],
+        });
+
+    });
+
+
+</script>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

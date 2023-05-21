@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monaco, Consolas, Lucida Console, monospace;
+}
+
+
+/* Main CSS */
+
+h1 {
+    color: #0d47a1;
+}
+
+.background {
+    height: 120vh;
+    background-color: #e0f7fa;
+}
+
+.box-header {
+    background-color: white;
+    padding: 2em;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.box {
+    background-color: white;
+    padding: 2rem;
+    border: 2px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.box:hover {
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    transform: translateY(-2px);
+}
+
+span.txtInfo {
+    height: 40.25px;
+    vertical-align: middle;
+}
+
+.avatar-form {
+    box-shadow: 0 0 5px 1px #333;
+}
+
+.avatar-form input.file-info {
+    border: none;
+    outline: none;
+    height: 100%;
+}
+
+.avatar-form input.file-info:hover {
+    box-shadow: 0 0 5px 1px blue;
+    font-weight: 600;
+}
+
+.avatar-box {
+    position: relative;
+}
+
+.avatar-box .btn-edit-avatar {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #5468ff;
+    width: 40px;
+    height: 40px;
+    top: 191px;
+    left: 192px;
+    border-radius: 100rem;
+    box-shadow: 0 0 5px 1px #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.avatar-box img {
+    width: 250px;
+    height: 250px;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    margin: auto;
+}

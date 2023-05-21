@@ -1,0 +1,148 @@
+@{
+    ViewData["Title"] = "Home";
+}
+@model Profile
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/css/StyleBox/StyleIndex.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+     <div class="container">
+        <br>
+        <header>
+            <h1 class="text-center p-4">Unichat</h1>
+        </header>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="box">
+                
+                    <div class="avatar-box">
+                        <a href="@Model.Avatar" target="_blank">
+                            <img src="@Model.Avatar" alt="">
+                        </a>
+                    </div>
+                    <div class="text-center pt-2">
+                        <h4>@Model.FullName</h4>
+                    </div>
+                    <div class="text-center pt-2">
+                        <h4>Username: @ViewBag.LoginUser.Username</h4>
+                    </div>
+                    <br>
+                    @* User tools include: profile and logout *@
+                    <div class="d-flex justify-content-around">
+                        @* Profile *@
+                        <a asp-controller="UserProfile" class="button-2 w-25"> <i class="fa fa-user"></i></a>
+                        @* Logout *@
+                        <a asp-controller="Login" asp-action="Logout"
+                            class="button-3 w-25 text-decoration-none text-white"> <i class="fa fa-power-off"></i> </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="box">
+                    <h3 class="box-tile text-center">My Deadline</h3>
+                    <div class="scroller">
+                        <ul class="list">
+                            @foreach (RoomDeadLine item in ViewBag.RoomDeadLineList)
+                            {
+                                if (item.ExpirationTime <= DateTime.Now)
+                                {
+                                    <li class="deadlineItem old">
+                                        <span>
+                                            
+                                                <b>Content:</b> @item.Content
+                                           
+                                        </span>
+                                        <div>
+                                            <b>Deadline time:</b>
+                                            @item.ExpirationTime.ToShortDateString() @item.ExpirationTime.ToShortTimeString()
+                                        </div>
+                                        <div><b>Subject:</b> @item.RoomChat.Subject.SubjectCode</div>
+                                        @if (ViewBag.LoginUser.RoleName == "Teacher")
+                                        {
+                                            <div><b>Class:</b>@item.RoomChat.Class.Name</div>
+                                        }
+                                    </li>
+                                }
+                                else {
+                                    <li class="deadlineItem new">
+                                        <span><b>Content:</b> @item.Content</span>
+                                        <div>
+                                            <b>Deadline time:</b>
+                                            <u>@item.ExpirationTime.ToShortDateString() @item.ExpirationTime.ToShortTimeString()</u>
+                                        </div>
+                                        <div><b>Subject:</b> @item.RoomChat.Subject.SubjectCode</div>
+                                        @if (ViewBag.LoginUser.RoleName == "Teacher")
+                                        {
+                                            <div><b>Class:</b>@item.RoomChat.Class.Name</div>
+                                        }
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="box">
+                    <h3 class="box-tile text-center">Class 
+                        @if (ViewBag.LoginUser.RoleName == "Student")
+                        {   
+                            StudentProfile profile = (StudentProfile) Model;
+                            <span>@profile.Class.Name</span>
+                        }
+                    </h3>
+                    <ul class="list px-4" style="font-size: 1.2rem;">
+                        @foreach (RoomChat item in ViewBag.RoomChats)
+                        {
+                            <li>
+                                @if (ViewBag.LoginUser.RoleName == "Teacher")
+                                {
+                                    <span>@item.Class.Name - </span>
+                                }
+                                <a asp-action="RoomChat" asp-route-id="@item.Id">@item.Subject.SubjectCode -
+                                    @item.Subject.FullName</a>
+                            </li>
+                        }
+                    </ul>
+                    
+                </div>
+            </div>
+            
+            @if (ViewBag.LoginUser.RoleName == "Student")
+            {
+            <div class="col-sm-6">
+                <div class="box">
+                    <h3 class="box-tile text-center">Groups</h3>
+                        <div class="group">
+                            <ul class="groups" style="font-size: 1.2rem;">
+                                @foreach (GroupChat item in ViewBag.GroupChats)
+                                {
+                                    <li>
+                                        <a asp-action="GroupChat" asp-route-id="@item.Id">@item.RoomChat.Subject.SubjectCode</a>
+                                    </li>    
+                                }
+                            </ul>
+                        </div>
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,46 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Main */
+body{
+    background-color: #e0f7fa;
+}
+
+h1 {
+    font-family: monaco, Consolas, Lucida Console, monospace;
+    color: #0d47a1;
+}
+
+.background {
+    height: 100vh;
+    background-color: #e0f7fa;
+}
+
+.box-header {
+    background-color: white;
+    padding: 2em;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.box {
+    background-color: white;
+    padding: 2em;
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 90vh;
+}
+
+.box:hover {
+    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+    transform: translateY(-2px);
+}
+
+.box img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    box-shadow: 0 0 5px 1px blue;
+}

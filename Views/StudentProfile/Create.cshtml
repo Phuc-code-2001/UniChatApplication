@@ -1,0 +1,113 @@
+﻿@model UniChatApplication.Models.StudentProfile
+
+@{
+    ViewData["Title"] = "Student - Create";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/css/cssPlus/buttonPlus.css">
+<link rel="stylesheet" href="~/css/StudentManagement/StyleCreate.css">
+<script src="~/js/FormValidator.js"></script>
+
+<div class="main-control">
+    <form asp-action="Create" method="POST" class="form" id="form-1">
+        <h1 class="align-center heading">Create Student Account</h1>
+        <hr>
+        <div class="spacer"></div>
+        <p class="text-danger">@ViewBag.Error</p>
+        <!-- name = id = fullname -->
+        <div class="form-group">
+            <label for="fullname" class="form-label">Full Name</label>
+            <input type="text" id="fullname" asp-for="FullName"  placeholder="Ex: Nguyễn Khánh Duy" class="form-control">
+            <span class="form-message" asp-validation-for="FullName"></span>
+        </div>
+
+        <!-- name = email -->
+        <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" asp-for="Email" placeholder="Ex: email@fpt.edu.vn" class="form-control">
+            <span class="form-message" asp-validation-for="Email"></span>
+        </div>
+
+        <!-- name = id = stuCode -->
+        <div class="form-group">
+            <label for="stuCode" class="form-label">Student Code</label>
+            <input type="text" id="stuCode" asp-for="StudentCode" placeholder="Ex: CE150519" class="form-control">
+            <span class="form-message" asp-validation-for="StudentCode"></span>
+        </div>
+
+        <!-- name = newGender -->
+        <div class="form-group">
+            <label for="gender" class="form-label">Gender</label>
+            <select asp-for="Gender" id="gender">
+                <option value="true">Male</option>
+                <option value="false">Female</option>
+            </select>
+        </div>
+
+        <!-- name= newMajor -->
+        <div class="form-group">
+            <label for="major" class="form-label">Major</label>
+            <select asp-for="Major" id="major">
+                <option value="IOT">INTERNET OF THING</option>
+                <option value="SE">SOFTWARE ENGINEERING</option>
+                <option value="Unset">UNSET</option>
+            </select>
+        </div>
+       
+        <!-- button submit -->
+        <button type="submit" class="form-submit button-2">
+            <i class="fa fa-check"></i>
+            <span>Add</span>
+        </button>
+        <hr>
+        <!-- button back to menu -->
+        <a asp-action="Index" id="btn-cancel" class="button-3 text-decoration-none">
+            <i class="fa fa-times"></i>
+            <span>Back to List</span>
+        </a>
+
+    </form>
+
+    <form action="CreateByFile" method="Post" class="form" enctype="multipart/form-data">
+        <h1 class="heading">Input By File</h1>
+        <hr>
+        <div class="d-flex">
+            <input type="file" accept=".xlsx" name="file" required>
+            <input type="submit" class="px-3" value="Add">
+        </div>
+    </form>
+
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mong muốn của chúng ta
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#fullname', 'Please enter full name!'),
+                Validator.maxLength('#fullname', 50),
+                Validator.isName('#fullname', "Please enter only letters"),
+
+                Validator.isRequired('#email', 'Please enter email!'),
+                Validator.isEmail('#email'),
+
+                Validator.isRequired('#stuCode', 'Please enter student code!'),
+                Validator.minLength('#stuCode', 8),
+                Validator.isStuCode('#stuCode')
+            ],
+        });
+
+    });
+
+</script>
+
+
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

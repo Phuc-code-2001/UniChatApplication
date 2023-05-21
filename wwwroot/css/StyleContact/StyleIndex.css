@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes backgroundCity {
+    0% {
+        background-image: url("../StyleContact/City-day.png");
+    }
+    33% {
+        background-image: url("../StyleContact/City-sunset.png");
+    }
+    66% {
+        background-image: url("../StyleContact/City-night.png");
+    }
+    100% {
+        background-image: url("../StyleContact/City-day.png");
+    }
+}
+
+body {
+    background-image: url("../StyleContact/City-day.png");
+    background-repeat: no-repeat;
+    animation-name: backgroundCity;
+    animation-duration: 20s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+}
+
+.row {
+   margin-top: 15vh;
+}
+
+.box {
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2em;
+}
+
+.box:hover {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+
+.form-group.invalid .form-control {
+    border-color: #f33a58;
+}
+
+.form-group.invalid .form-message {
+    color: #f33a58;
+}

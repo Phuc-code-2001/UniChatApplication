@@ -278,7 +278,7 @@ namespace UniChatApplication.Controllers
                             result.Add($"Success: Add student '{FullName}' successfully.");
 
                         }
-                        catch (NullReferenceException)
+                        catch (Exception)
                         {
                             // End of file
                             break;

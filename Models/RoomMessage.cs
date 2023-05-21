@@ -22,8 +22,9 @@ namespace UniChatApplication.Models
         //RoomID Property
         [Column("room_id")]
         [ForeignKey("RoomChat")]
-        public int RoomID { get; set; }
+        public int? RoomID { get; set; }
         //Get and Set RoomChat
+        [ForeignKey("RoomID")]
         public RoomChat RoomChat { get; set; }
         //Content Property
         public string Content { get; set; }

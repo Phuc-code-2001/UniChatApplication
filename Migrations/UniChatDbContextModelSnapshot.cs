@@ -190,7 +190,7 @@ namespace UniChatApplication.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("role");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int")
                         .HasColumnName("student_id");
 
@@ -218,7 +218,7 @@ namespace UniChatApplication.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("GroupId")
+                    b.Property<int?>("GroupId")
                         .HasColumnType("int")
                         .HasColumnName("group_id");
 
@@ -351,7 +351,7 @@ namespace UniChatApplication.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoomID")
+                    b.Property<int?>("RoomID")
                         .HasColumnType("int")
                         .HasColumnName("room_id");
 
@@ -547,9 +547,7 @@ namespace UniChatApplication.Migrations
 
                     b.HasOne("UniChatApplication.Models.StudentProfile", "StudentProfile")
                         .WithMany("GroupManages")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("GroupChat");
 
@@ -566,9 +564,7 @@ namespace UniChatApplication.Migrations
 
                     b.HasOne("UniChatApplication.Models.GroupChat", "GroupChat")
                         .WithMany("Messages")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GroupId");
 
                     b.Navigation("Account");
 
@@ -633,10 +629,8 @@ namespace UniChatApplication.Migrations
                         .IsRequired();
 
                     b.HasOne("UniChatApplication.Models.RoomChat", "RoomChat")
-                        .WithMany("Messages")
-                        .HasForeignKey("RoomID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("RoomMessages")
+                        .HasForeignKey("RoomID");
 
                     b.Navigation("Account");
 
@@ -722,7 +716,7 @@ namespace UniChatApplication.Migrations
 
                     b.Navigation("GroupChats");
 
-                    b.Navigation("Messages");
+                    b.Navigation("RoomMessages");
                 });
 
             modelBuilder.Entity("UniChatApplication.Models.StudentProfile", b =>

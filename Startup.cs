@@ -28,7 +28,7 @@ namespace UniChatApplication
             services
                 .AddDbContext<UniChatDbContext>(options =>
                     options
-                        .UseSqlite(Configuration
+                        .UseSqlServer(Configuration
                             .GetConnectionString("UniChatDatabase"),
                             o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 

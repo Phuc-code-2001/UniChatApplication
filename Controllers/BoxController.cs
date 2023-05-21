@@ -157,7 +157,7 @@ namespace UniChatApplication.Controllers
             if (!CheckMessageBelongGroupOfUser) return BadRequest();
 
 
-            RoomMessagePin messagePin = RoomMessagePinDAOs.GetAllMessagePinOfRoom(_context, message.RoomID).FirstOrDefault(m => m.RoomMessage.Id == roomMessageId);
+            RoomMessagePin messagePin = RoomMessagePinDAOs.GetAllMessagePinOfRoom(_context, message.RoomID.Value).FirstOrDefault(m => m.RoomMessage.Id == roomMessageId);
 
             if (messagePin == null)
             {
@@ -246,7 +246,7 @@ namespace UniChatApplication.Controllers
             if (!CheckMessageBelongGroupOfUser) return BadRequest();
 
 
-            GroupPinMessage messagePin = GroupMessagePinDAOs.GetAllMessagePinOfGroup(_context, message.GroupId).FirstOrDefault(m => m.GroupMessage.Id == groupMessageId);
+            GroupPinMessage messagePin = GroupMessagePinDAOs.GetAllMessagePinOfGroup(_context, message.GroupId.Value).FirstOrDefault(m => m.GroupMessage.Id == groupMessageId);
 
             if (messagePin == null)
             {

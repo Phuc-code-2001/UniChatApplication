@@ -37,7 +37,7 @@
                     <th>Email</th>
                     <th>Username</th>
                     <th>Gender</th>
-                    <th>Major</th>
+                    @*<th>Major</th>*@
                     <th>StudentCode</th>
                     <th>Configure</th>
                 </tr>
@@ -51,7 +51,7 @@
                         <td>@item.Email</td>
                         <td>@item.Account.Username</td>
                         <td>@item.GenderText</td>
-                        <td>@item.Major</td>
+                        @*<td>@item.Major</td>*@
                         <td>@item.StudentCode</td>
                         <td class="d-flex" style="gap: 1rem;">
                             <a class="button-2 text-decoration-none text-white" asp-action="Edit" asp-route-id="@item.Id">

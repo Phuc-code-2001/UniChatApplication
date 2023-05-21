@@ -100,7 +100,7 @@
                         @if (ViewBag.LoginUser.RoleName == "Student")
                         {   
                             StudentProfile profile = (StudentProfile) Model;
-                            <span>@profile.Class.Name</span>
+                            <span>@profile.Class?.Name</span>
                         }
                     </h3>
                     <ul class="list px-4" style="font-size: 1.2rem;">

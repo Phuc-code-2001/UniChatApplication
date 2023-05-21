@@ -15,7 +15,7 @@ namespace UniChatApplication.Models
         //StudentId Property
         [Column("student_id")]
         [ForeignKey("StudentProfile")]
-        public int StudentId { get; set; }
+        public int? StudentId { get; set; }
         //Get and Set StudentProfile
         public StudentProfile StudentProfile { get; set; }
         //GroupId Property

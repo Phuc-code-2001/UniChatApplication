@@ -42,7 +42,7 @@ namespace UniChatApplication.Controllers
             if (roomChat.TeacherProfile.AccountID == LoginUser.Id
             || roomChat.ClassId == LoginUser.StudentProfile?.ClassID)
             {
-                roomChat.Messages.Add(new RoomMessage()
+                roomChat.RoomMessages.Add(new RoomMessage()
                 {
                     RoomID = RoomID,
                     RoomChat = roomChat,
@@ -52,7 +52,7 @@ namespace UniChatApplication.Controllers
                     TimeMessage = DateTime.Now
                 });
                 await _context.SaveChangesAsync();
-                RoomMessage roomMessage = roomChat.Messages.OrderBy(r => r.TimeMessage).Last();
+                RoomMessage roomMessage = roomChat.RoomMessages.OrderBy(r => r.TimeMessage).Last();
 
                 var response = new
                 {

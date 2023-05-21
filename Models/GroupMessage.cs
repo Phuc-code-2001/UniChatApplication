@@ -19,7 +19,7 @@ namespace UniChatApplication.Models
         //GroupId Property
         [Column("group_id")]
         [ForeignKey("GroupChat")]
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
         //Get and Set GroupChat
         public GroupChat GroupChat { get; set; }
         //Content Property

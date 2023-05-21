@@ -25,7 +25,7 @@
 
                 <form class="p-2 d-flex avatar-form" enctype="multipart/form-data" asp-action="UpdateAvatar"
                     method="POST">
-                    <input class="file-info" type="file" accept=".png,.jpg" name="imageFile">
+                    <input class="file-info" type="file" accept="image/*" name="imageFile">
                     <input class="file-info px-2" type="submit" value="Ok">
                 </form>
             </div>
@@ -176,12 +176,12 @@
                             <p class="text-muted"> @profile.Email</p>
                         </div>
 
-                        <div class="col-sm-12">
+                        @*<div class="col-sm-12">
                             <h3>Major</h3>
                             <hr>
-                        </div>
+                        </div>*@
 
-                        <div class="col-sm-6">
+                        @*<div class="col-sm-6">
                             <strong>Major:</strong>
                             @if (profile.Major == "SE")
 
@@ -196,14 +196,14 @@
                                 <p class="text-muted">Internet of thing</p>
 
                             }
-                        </div>
+                        </div>*@
                         <div class="col-sm-6">
                             <strong>StudentCode:</strong>
                             <p class="text-muted"> @profile.StudentCode</p>
                         </div>
                         <div class="col-sm-6">
                             <strong>Class:</strong>
-                            <p class="text-muted"> @profile.Class.Name</p>
+                            <p class="text-muted"> @profile.getClassName()</p>
                         </div>
                     </div>
 

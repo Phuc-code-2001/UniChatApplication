@@ -19,7 +19,7 @@ namespace UniChatApplication.Daos
                     .Include(r => r.Class.StudentProfiles)
                     .Include(r => r.Subject)
                     .Include(r => r.TeacherProfile)
-                    .Include(r => r.Messages)
+                    .Include(r => r.RoomMessages)
                     .Include(r => r.GroupChats);
         }
         /// <summary>

@@ -30,12 +30,10 @@ namespace UniChatApplication.Models
         //Get and Set TeacherProfile
         public TeacherProfile TeacherProfile { get; set; }
         //Get list RoomMessage
-        [InverseProperty("RoomChat")]
-        public ICollection<RoomMessage> Messages { get; set; }
+        public ICollection<RoomMessage> RoomMessages { get; set; }
         //Get list RoomDeadLine
         public ICollection<RoomDeadLine> DeadLines { get; set; }
         //Get list GroupChat
-        [InverseProperty("RoomChat")]
         public ICollection<GroupChat> GroupChats { get; set; }
 
     }

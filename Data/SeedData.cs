@@ -29,7 +29,7 @@ namespace UniChatApplication.Data
                     new AdminProfile()
                     {
                         FullName = "Admin",
-                        Email = "admin@fpt.edu.vn",
+                        Email = "admin@unichat.com",
                         Phone = "0987499512",
                         Gender = true,
                         Account = AccountDAOs.CreateAccount("admin", "12345678", 3)

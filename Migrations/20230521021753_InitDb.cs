@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UniChatApplication.Migrations
 {
-    public partial class INitDb : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -247,7 +247,7 @@ namespace UniChatApplication.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     account_id = table.Column<int>(type: "int", nullable: false),
-                    room_id = table.Column<int>(type: "int", nullable: false),
+                    room_id = table.Column<int>(type: "int", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     time_message = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -265,7 +265,7 @@ namespace UniChatApplication.Migrations
                         column: x => x.room_id,
                         principalTable: "room_chat",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -295,7 +295,7 @@ namespace UniChatApplication.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    student_id = table.Column<int>(type: "int", nullable: false),
+                    student_id = table.Column<int>(type: "int", nullable: true),
                     group_id = table.Column<int>(type: "int", nullable: false),
                     role = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -313,7 +313,7 @@ namespace UniChatApplication.Migrations
                         column: x => x.student_id,
                         principalTable: "student_profile",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -323,7 +323,7 @@ namespace UniChatApplication.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     account_id = table.Column<int>(type: "int", nullable: false),
-                    group_id = table.Column<int>(type: "int", nullable: false),
+                    group_id = table.Column<int>(type: "int", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     time_message = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -341,7 +341,7 @@ namespace UniChatApplication.Migrations
                         column: x => x.group_id,
                         principalTable: "group_chat",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
